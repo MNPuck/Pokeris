@@ -597,6 +597,216 @@ public class Assets implements Disposable, AssetErrorListener {
 		
 	}
 	
+	public class AssetCard33 {
+		public final AtlasRegion card33;
+
+		public AssetCard33 (TextureAtlas atlas) {
+			card33 = atlas.findRegion("33");
+			
+			if (card33 == null) {
+				
+				Gdx.app.debug(TAG, "Card33 is null");
+			}
+
+		}
+		
+	}
+	
+	public class AssetCard34 {
+		public final AtlasRegion card34;
+
+		public AssetCard34 (TextureAtlas atlas) {
+			card34 = atlas.findRegion("34");
+			
+			if (card34 == null) {
+				
+				Gdx.app.debug(TAG, "Card34 is null");
+			}
+
+		}
+		
+	}
+	
+	public class AssetCard35 {
+		public final AtlasRegion card35;
+
+		public AssetCard35 (TextureAtlas atlas) {
+			card35 = atlas.findRegion("35");
+			
+			if (card35 == null) {
+				
+				Gdx.app.debug(TAG, "Card35 is null");
+			}
+
+		}
+		
+	}
+	
+	public class AssetCard36 {
+		public final AtlasRegion card36;
+
+		public AssetCard36 (TextureAtlas atlas) {
+			card36 = atlas.findRegion("36");
+			
+			if (card36 == null) {
+				
+				Gdx.app.debug(TAG, "Card36 is null");
+			}
+
+		}
+		
+	}
+	
+	public class AssetCard37 {
+		public final AtlasRegion card37;
+
+		public AssetCard37 (TextureAtlas atlas) {
+			card37 = atlas.findRegion("37");
+			
+			if (card37 == null) {
+				
+				Gdx.app.debug(TAG, "Card37 is null");
+			}
+
+		}
+		
+	}
+	
+	public class AssetCard38 {
+		public final AtlasRegion card38;
+
+		public AssetCard38 (TextureAtlas atlas) {
+			card38 = atlas.findRegion("38");
+			
+			if (card38 == null) {
+				
+				Gdx.app.debug(TAG, "Card38 is null");
+			}
+
+		}
+		
+	}
+	
+	public class AssetCard39 {
+		public final AtlasRegion card39;
+
+		public AssetCard39 (TextureAtlas atlas) {
+			card39 = atlas.findRegion("39");
+			
+			if (card39 == null) {
+				
+				Gdx.app.debug(TAG, "Card39 is null");
+			}
+
+		}
+		
+	}
+	
+	public class AssetCard40 {
+		public final AtlasRegion card40;
+
+		public AssetCard40 (TextureAtlas atlas) {
+			card40 = atlas.findRegion("40");
+			
+			if (card40 == null) {
+				
+				Gdx.app.debug(TAG, "Card40 is null");
+			}
+
+		}
+		
+	}
+	
+	public class AssetCard41 {
+		public final AtlasRegion card41;
+
+		public AssetCard41 (TextureAtlas atlas) {
+			card41 = atlas.findRegion("41");
+			
+			if (card41 == null) {
+				
+				Gdx.app.debug(TAG, "Card41 is null");
+			}
+
+		}
+		
+	}
+	
+	public class AssetCard42 {
+		public final AtlasRegion card42;
+
+		public AssetCard42 (TextureAtlas atlas) {
+			card42 = atlas.findRegion("42");
+			
+			if (card42 == null) {
+				
+				Gdx.app.debug(TAG, "Card42 is null");
+			}
+
+		}
+		
+	}
+	
+	public class AssetCard43 {
+		public final AtlasRegion card43;
+
+		public AssetCard43 (TextureAtlas atlas) {
+			card43 = atlas.findRegion("43");
+			
+			if (card43 == null) {
+				
+				Gdx.app.debug(TAG, "Card43 is null");
+			}
+
+		}
+		
+	}
+	
+	public class AssetCard44 {
+		public final AtlasRegion card44;
+
+		public AssetCard44 (TextureAtlas atlas) {
+			card44 = atlas.findRegion("44");
+			
+			if (card44 == null) {
+				
+				Gdx.app.debug(TAG, "Card44 is null");
+			}
+
+		}
+		
+	}
+	
+	public class AssetCard45 {
+		public final AtlasRegion card45;
+
+		public AssetCard45 (TextureAtlas atlas) {
+			card45 = atlas.findRegion("45");
+			
+			if (card45 == null) {
+				
+				Gdx.app.debug(TAG, "Card45 is null");
+			}
+
+		}
+		
+	}
+	
+	public class AssetCard46 {
+		public final AtlasRegion card46;
+
+		public AssetCard46 (TextureAtlas atlas) {
+			card46 = atlas.findRegion("46");
+			
+			if (card46 == null) {
+				
+				Gdx.app.debug(TAG, "Card46 is null");
+			}
+
+		}
+		
+	}
+	
 	public class AssetSounds {
 		
 		public final Sound shipShot;
