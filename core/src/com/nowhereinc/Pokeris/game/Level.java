@@ -5,18 +5,23 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
+import com.nowhereinc.Pokeris.game.objects.AbstractGameObject;
+import com.nowhereinc.Pokeris.game.objects.Border;
 import com.nowhereinc.Pokeris.game.objects.Card;
-import com.nowhereinc.Pokeris.game.objects.Deck;
-import com.nowhereinc.Pokeris.game.objects.Hand;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.nowhereinc.Pokeris.util.Constants;
+import com.nowhereinc.Pokeris.util.Deck;
+import com.nowhereinc.Pokeris.util.Hand;
 import com.nowhereinc.Pokeris.game.Assets;
 
 public class Level {
 
 	public static final String TAG = Level.class.getName();
+	
+	// Border
+	public Border border;
 	
 	// Card
 	public Card card;
@@ -60,6 +65,12 @@ public class Level {
 		
 		// level game over init
 		isGameOver = false;
+		
+		// create border
+		AbstractGameObject obj = null;
+		obj = new Border();
+		obj.position.set(0,0);
+		border = (Border)obj;
 		
 		newLevel();
 		
@@ -124,7 +135,9 @@ public class Level {
 	}
 
 	public void render (SpriteBatch batch, float deltaTime) {
-							
+		
+		// draw border
+		border.render(batch);
 		
 	}
 

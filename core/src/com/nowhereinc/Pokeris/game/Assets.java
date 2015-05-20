@@ -30,6 +30,8 @@ public class Assets implements Disposable, AssetErrorListener {
 	
 	public AssetFonts fonts;
 	
+	public AssetBorder border;
+	
 	public AssetCard1 card1;	
 	public AssetCard2 card2;
 	public AssetCard3 card3;
@@ -111,6 +113,21 @@ public class Assets implements Disposable, AssetErrorListener {
 			defaultNormal.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 			defaultBig.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		}
+	}
+	
+	public class AssetBorder {
+		public final AtlasRegion border;
+
+		public AssetBorder (TextureAtlas atlas) {
+			border = atlas.findRegion("border");
+			
+			if (border == null) {
+				
+				Gdx.app.debug(TAG,"Border is null");
+			}
+
+		}
+		
 	}
 	
 	public class AssetCard1 {
@@ -919,7 +936,6 @@ public class Assets implements Disposable, AssetErrorListener {
 		this.assetManager = assetManager;
 		// set asset manager error handler
 		assetManager.setErrorListener(this);
-
 		
 		// load texture atlas
 		assetManager.load(Constants.TEXTURE_ATLAS_OBJECTS, TextureAtlas.class);
@@ -949,6 +965,8 @@ public class Assets implements Disposable, AssetErrorListener {
 
 		// create game resource objects
 		fonts = new AssetFonts();
+		
+		border = new AssetBorder(atlas);
 		
 		card1 = new AssetCard1(atlas);
 		card2 = new AssetCard2(atlas);

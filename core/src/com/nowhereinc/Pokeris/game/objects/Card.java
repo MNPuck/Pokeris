@@ -1,6 +1,13 @@
 package com.nowhereinc.Pokeris.game.objects;
 
-public class Card {
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.nowhereinc.Pokeris.game.Assets;
+import com.nowhereinc.Pokeris.util.Constants;
+
+public class Card extends AbstractGameObject {
+	
+	private TextureRegion Card;
 	
     private final int rank;
     private final int suit;
@@ -31,6 +38,326 @@ public class Card {
         assert isValidSuit(suit);
         this.rank = rank;
         this.suit = suit;
+        
+        init();
+    }
+    
+    private void init() {
+    	
+    	dimension.set(Constants.CARDXSIZE, Constants.CARDYSIZE);
+    	
+    	if (rank == 1 && suit == 1) {
+    		
+    		Card = Assets.instance.card1.card1;
+    		
+    	}
+    	
+    	if (rank == 1 && suit == 2) {
+    		
+    		Card = Assets.instance.card2.card2;
+    		
+    	}
+    	
+    	if (rank == 1 && suit == 3) {
+    		
+    		Card = Assets.instance.card3.card3;
+    		
+    	}
+    	
+    	if (rank == 1 && suit == 4) {
+    		
+    		Card = Assets.instance.card4.card4;
+    		
+    	}
+    	
+    	if (rank == 13 && suit == 1) {
+    		
+    		Card = Assets.instance.card5.card5;
+    		
+    	}
+    	
+    	if (rank == 13 && suit == 2) {
+    		
+    		Card = Assets.instance.card6.card6;
+    		
+    	}
+    	
+    	if (rank == 13 && suit == 3) {
+    		
+    		Card = Assets.instance.card7.card7;
+    		
+    	}
+    	
+    	if (rank == 13 && suit == 4) {
+    		
+    		Card = Assets.instance.card8.card8;
+    		
+    	}
+    	
+    	if (rank == 12 && suit == 1) {
+    		
+    		Card = Assets.instance.card9.card9;
+    		
+    	}
+    	
+    	if (rank == 12 && suit == 2) {
+    		
+    		Card = Assets.instance.card10.card10;
+    		
+    	}
+    	
+    	if (rank == 12 && suit == 3) {
+    		
+    		Card = Assets.instance.card11.card11;
+    		
+    	}
+    	
+    	if (rank == 12 && suit == 4) {
+    		
+    		Card = Assets.instance.card12.card12;
+    		
+    	}
+    	
+    	if (rank == 11 && suit == 1) {
+    		
+    		Card = Assets.instance.card13.card13;
+    		
+    	}
+    	
+    	if (rank == 11 && suit == 2) {
+    		
+    		Card = Assets.instance.card14.card14;
+    		
+    	}
+    	
+    	if (rank == 11 && suit == 3) {
+    		
+    		Card = Assets.instance.card15.card15;
+    		
+    	}
+    	
+    	if (rank == 11 && suit == 4) {
+    		
+    		Card = Assets.instance.card16.card16;
+    		
+    	}
+    	
+    	if (rank == 10 && suit == 1) {
+    		
+    		Card = Assets.instance.card17.card17;
+    		
+    	}
+    	
+    	if (rank == 10 && suit == 2) {
+    		
+    		Card = Assets.instance.card18.card18;
+    		
+    	}
+    	
+    	if (rank == 10 && suit == 3) {
+    		
+    		Card = Assets.instance.card19.card19;
+    		
+    	}
+    	
+    	if (rank == 10 && suit == 4) {
+    		
+    		Card = Assets.instance.card20.card20;
+    		
+    	}
+    	
+    	if (rank == 9 && suit == 1) {
+    		
+    		Card = Assets.instance.card21.card21;
+    		
+    	}
+    	
+    	if (rank == 9 && suit == 2) {
+    		
+    		Card = Assets.instance.card22.card22;
+    		
+    	}
+    	
+    	if (rank == 9 && suit == 3) {
+    		
+    		Card = Assets.instance.card23.card23;
+    		
+    	}
+    	
+    	if (rank == 9 && suit == 4) {
+    		
+    		Card = Assets.instance.card24.card24;
+    		
+    	}
+    	
+    	if (rank == 8 && suit == 1) {
+    		
+    		Card = Assets.instance.card25.card25;
+    		
+    	}
+    	
+    	if (rank == 8 && suit == 2) {
+    		
+    		Card = Assets.instance.card26.card26;
+    		
+    	}
+    	
+    	if (rank == 8 && suit == 3) {
+    		
+    		Card = Assets.instance.card27.card27;
+    		
+    	}
+    	
+    	if (rank == 8 && suit == 4) {
+    		
+    		Card = Assets.instance.card28.card28;
+    		
+    	}
+    	
+    	if (rank == 7 && suit == 1) {
+    		
+    		Card = Assets.instance.card29.card29;
+    		
+    	}
+    	
+    	if (rank == 7 && suit == 2) {
+    		
+    		Card = Assets.instance.card30.card30;
+    		
+    	}
+    	
+    	if (rank == 7 && suit == 3) {
+    		
+    		Card = Assets.instance.card31.card31;
+    		
+    	}
+    	
+    	if (rank == 7 && suit == 4) {
+    		
+    		Card = Assets.instance.card32.card32;
+    		
+    	}
+    	
+    	if (rank == 6 && suit == 1) {
+    		
+    		Card = Assets.instance.card33.card33;
+    		
+    	}
+    	
+    	if (rank == 6 && suit == 2) {
+    		
+    		Card = Assets.instance.card34.card34;
+    		
+    	}
+    	
+    	if (rank == 6 && suit == 3) {
+    		
+    		Card = Assets.instance.card35.card35;
+    		
+    	}
+    	
+    	if (rank == 6 && suit == 4) {
+    		
+    		Card = Assets.instance.card36.card36;
+    		
+    	}
+    	
+    	if (rank == 5 && suit == 1) {
+    		
+    		Card = Assets.instance.card37.card37;
+    		
+    	}
+    	
+    	if (rank == 5 && suit == 2) {
+    		
+    		Card = Assets.instance.card38.card38;
+    		
+    	}
+    	
+    	if (rank == 5 && suit == 3) {
+    		
+    		Card = Assets.instance.card39.card39;
+    		
+    	}
+    	
+    	if (rank == 5 && suit == 4) {
+    		
+    		Card = Assets.instance.card40.card40;
+    		
+    	}
+    	
+    	if (rank == 3 && suit == 1) {
+    		
+    		Card = Assets.instance.card41.card41;
+    		
+    	}
+    	
+    	if (rank == 3 && suit == 2) {
+    		
+    		Card = Assets.instance.card42.card42;
+    		
+    	}
+    	
+    	if (rank == 3 && suit == 3) {
+    		
+    		Card = Assets.instance.card43.card43;
+    		
+    	}
+    	
+    	if (rank == 4 && suit == 4) {
+    		
+    		Card = Assets.instance.card44.card44;
+    		
+    	}
+    	
+    	if (rank == 3 && suit == 1) {
+    		
+    		Card = Assets.instance.card45.card45;
+    		
+    	}
+    	
+    	if (rank == 3 && suit == 2) {
+    		
+    		Card = Assets.instance.card46.card46;
+    		
+    	}
+    	
+    	if (rank == 3 && suit == 3) {
+    		
+    		Card = Assets.instance.card47.card47;
+    		
+    	}
+    	
+    	if (rank == 3 && suit == 4) {
+    		
+    		Card = Assets.instance.card48.card48;
+    		
+    	}
+    	
+    	if (rank == 2 && suit == 1) {
+    		
+    		Card = Assets.instance.card49.card49;
+    		
+    	}
+    	
+    	if (rank == 2 && suit == 2) {
+    		
+    		Card = Assets.instance.card50.card50;
+    		
+    	}
+    	
+    	if (rank == 2 && suit == 3) {
+    		
+    		Card = Assets.instance.card51.card51;
+    		
+    	}
+    	
+    	if (rank == 2 && suit == 4) {
+    		
+    		Card = Assets.instance.card52.card52;
+    		
+    	}
+    	
     }
 
     public int getSuit() {
@@ -121,4 +448,18 @@ public class Card {
         assert suitToString(SPADES) == "Spades";
 
     }
+    
+	public void render (SpriteBatch batch) {
+		
+		TextureRegion reg = null;
+		
+		float newPositionx = position.x - (dimension.x * .5f);
+		float newPositiony = position.y - (dimension.y * .5f);
+
+		reg = Card;
+		
+		batch.draw(reg.getTexture(), newPositionx, newPositiony, origin.x, origin.y, dimension.x, dimension.y, scale.x, scale.y,
+			rotation, reg.getRegionX(), reg.getRegionY(), reg.getRegionWidth(), reg.getRegionHeight(), false, false);
+		
+	}
 }

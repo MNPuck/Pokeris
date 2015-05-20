@@ -1,6 +1,8 @@
-package com.nowhereinc.Pokeris.game.objects;
+package com.nowhereinc.Pokeris.util;
 
 import java.util.*;
+
+import com.nowhereinc.Pokeris.game.objects.Card;
 
 public class Deck {
 
