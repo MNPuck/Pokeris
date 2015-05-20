@@ -20,11 +20,11 @@ public class DesktopLauncher {
 			settings.maxHeight = 1024;
 			settings.duplicatePadding = false;
 			settings.debug = drawDebugOutline;
-			TexturePacker.process(settings, "assets-raw/images", "../android/assets/images", "AirCommander.pack");
+			TexturePacker.process(settings, "assets-raw/images", "../android/assets/images", "Pokeris.pack");
 		}
 		
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
-		cfg.title = "AirCommander";
+		cfg.title = "Pokeris";
 		cfg.width = 1600;
 		cfg.height = 900;
 		cfg.fullscreen = true;

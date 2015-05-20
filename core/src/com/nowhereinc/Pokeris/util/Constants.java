@@ -25,7 +25,7 @@ public class Constants {
 
 	// Location of description file for texture atlas
 	public static final String TEXTURE_ATLAS_OBJECTS = 
-	"images/AirCommander.pack.atlas";
+	"images/Pokeris.pack.atlas";
 	
 	// Number of Levels
 	public static final int NUMBEROFLEVELS = 1;

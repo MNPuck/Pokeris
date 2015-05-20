@@ -45,40 +45,20 @@ public class WorldRenderer implements Disposable {
 		cameraGUI.position.set(0, 0, 0);
 		cameraGUI.setToOrtho(true); // flip y-axis
 		cameraGUI.update();
-		renderer = new OrthogonalTiledMapRenderer(Assets.instance.map, 1f / 32f);
-		
-		//debugMatrix = new Matrix4(camera.combined);
-		//debugMatrix.scale(Constants.BOX_TO_WORLD, Constants.BOX_TO_WORLD, 1f);
-		
-		debugRenderer = new Box2DDebugRenderer();
+	
 	}
 
 	public void render (float deltaTime) {
-		
-		renderMap(renderer);
+	
 		renderWorld(batch, deltaTime);
 		renderGui(batch);
-		
-	}
-	
-	private void renderMap(TiledMapRenderer renderer) {
-		
-		float width = (float) (Constants.GAMEBOARD_WIDTH * .5);
-		float height = (float) (Constants.GAMEBOARD_HEIGHT * .5);
-		
-		camera.translate(width, height);
-		camera.update();
-		renderer.setView(camera);
-		renderer.render();
 		
 	}
 
 	private void renderWorld (SpriteBatch batch, float deltaTime) {
 		
-		worldController.cameraHelper.applyTo(camera);
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
-		//debugRenderer.render(worldController.level.world, camera.combined);
 		worldController.level.render(batch, deltaTime);
 		batch.end();
 	}
@@ -142,7 +122,7 @@ public class WorldRenderer implements Disposable {
 		BitmapFont fpsFont = Assets.instance.fonts.defaultBig;
 		
 		fpsFont.setColor(0, 1, 0, 1);
-		fpsFont.draw(batch, "Lives: " + worldController.level.returnLives(), x , y);		
+		fpsFont.draw(batch, "Lives: 0", x , y);		
 		fpsFont.setColor(1, 1, 1, 1); // white
 		
 	}

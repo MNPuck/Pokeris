@@ -31,8 +31,6 @@ public class WorldController extends InputAdapter {
 	private float tsXAxis;
 	private float tsYAxis;
 	
-	public CameraHelper cameraHelper;
-	
 	Vector2 cameraPosition;
 
 	public WorldController (DirectedGame game) {
@@ -45,16 +43,16 @@ public class WorldController extends InputAdapter {
 		Gdx.input.setInputProcessor(this);
 		Gdx.input.setCatchBackKey(true);
 		
-		cameraHelper = new CameraHelper();
-		
 		switch (Gdx.app.getType()) {
 		
 			case Desktop: 
-				player1Controller = Controllers.getControllers().get(0);
+				tsXAxis = 0;
+				tsYAxis = 0;
 				break;
 				
 			case Android:
 				tsXAxis = 0;
+				tsYAxis = 0;
 				break;
 				
 			default:
@@ -74,11 +72,7 @@ public class WorldController extends InputAdapter {
 	private void initLevel() {
 		
 		level = new Level();
-		
-		// cameraHelper.setTarget(level.player.body);
-		
-		cameraPosition = cameraHelper.getPosition();
-	
+
 	}
 	
 	public boolean isGameOver () {
@@ -99,8 +93,6 @@ public class WorldController extends InputAdapter {
 	
 	public void update (float deltaTime, WorldRenderer worldRenderer) {
 		
-		// handleDebugInput(deltaTime);
-		
 		gameOver = level.returnIsGameOver();
 		
 		if (!gameOver) {
@@ -108,7 +100,7 @@ public class WorldController extends InputAdapter {
 			switch (Gdx.app.getType()) {
 		
 				case Desktop: 
-					readController();
+					readScreenInput(worldRenderer);
 					break;
 			
 				case Android:
@@ -120,30 +112,13 @@ public class WorldController extends InputAdapter {
 	
 			}
 			
-			// set up camera vertical scroll of map
-			
-			cameraPosition = cameraHelper.getPosition();
-			cameraPosition.y += Constants.SCROLL_SPEED * deltaTime;
-			
-			level.update(deltaTime, cameraPosition);
-			level.deleteFlaggedItems(cameraPosition);
-			
-			// camera helper update
-			
-			// cameraHelper.update(deltaTime, cameraPosition, level.player.returnPlayerPosition());
-			
-			if (level.lives == 0) {
-			
-				gameOver = true;
-			
-			}
+			level.update(deltaTime);
 		
 		}
 		
 		switch (Gdx.app.getType()) {
 		
 		case Desktop: 
-			checkBackKeyJoystick();
 			checkEscKey();
 			break;
 		
@@ -155,27 +130,6 @@ public class WorldController extends InputAdapter {
 				
 		}
 	
-	}
-	
-	private void readController() {
-		
-		// player move 
-		float leftXAxis = player1Controller.getAxis(Xbox360Pad.AXIS_LEFT_X);
-		float leftYAxis = player1Controller.getAxis(Xbox360Pad.AXIS_LEFT_Y);
-		
-		// player button checks
-		boolean aButton = player1Controller.getButton(Xbox360Pad.BUTTON_A);
-		boolean bButton = player1Controller.getButton(Xbox360Pad.BUTTON_B);
-		boolean xButton = player1Controller.getButton(Xbox360Pad.BUTTON_X);
-		boolean yButton = player1Controller.getButton(Xbox360Pad.BUTTON_Y);
-
-		level.player.inputController(leftXAxis, leftYAxis, aButton, bButton,
-				                     xButton, yButton);
-
-		
-		//pause check
-		startPressed = player1Controller.getButton(Xbox360Pad.BUTTON_START);
-		
 	}
 	
 	private void readScreenInput(WorldRenderer worldRenderer) {
@@ -200,22 +154,17 @@ public class WorldController extends InputAdapter {
 			//call player module
 			float wuXAxis = tsOutput.x;
 			float wuYAxis = tsOutput.y;
-			level.player.inputTouchScreen(wuXAxis, wuYAxis);
+			
+			// level.player.inputTouchScreen(wuXAxis, wuYAxis);
 				
 		}
 		
 		if (!Gdx.input.isTouched()) {
 				
-			level.player.inputTouchScreen(-99, -99);
+			// level.player.inputTouchScreen(-99, -99);
 			
 		}
 				
-	}
-	
-	private void testCollisions() {
-
-		// Test collisions
-
 	}
 	
 	private void checkEscKey() {
@@ -223,13 +172,6 @@ public class WorldController extends InputAdapter {
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE))
 				escPressed = true;
 
-	}
-	
-	private void checkBackKeyJoystick() {
-		
-		//select check
-		selectPressed =  player1Controller.getButton(Xbox360Pad.BUTTON_BACK);
-		
 	}
 	
 	@Override

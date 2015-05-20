@@ -28,10 +28,6 @@ public class Assets implements Disposable, AssetErrorListener {
 
 	private AssetManager assetManager;
 	
-	public TiledMap map;
-	public MapObjects mapObjects;
-	public MapLayer mapObjectLayer;
-	
 	public AssetFonts fonts;
 	
 	public AssetCard1 card1;	
@@ -807,6 +803,96 @@ public class Assets implements Disposable, AssetErrorListener {
 		
 	}
 	
+	public class AssetCard47 {
+		public final AtlasRegion card47;
+
+		public AssetCard47 (TextureAtlas atlas) {
+			card47 = atlas.findRegion("47");
+			
+			if (card47 == null) {
+				
+				Gdx.app.debug(TAG, "Card47 is null");
+			}
+
+		}
+		
+	}
+	
+	public class AssetCard48 {
+		public final AtlasRegion card48;
+
+		public AssetCard48 (TextureAtlas atlas) {
+			card48 = atlas.findRegion("48");
+			
+			if (card48 == null) {
+				
+				Gdx.app.debug(TAG, "Card48 is null");
+			}
+
+		}
+		
+	}
+	
+	public class AssetCard49 {
+		public final AtlasRegion card49;
+
+		public AssetCard49 (TextureAtlas atlas) {
+			card49 = atlas.findRegion("49");
+			
+			if (card49 == null) {
+				
+				Gdx.app.debug(TAG, "Card49 is null");
+			}
+
+		}
+		
+	}
+	
+	public class AssetCard50 {
+		public final AtlasRegion card50;
+
+		public AssetCard50 (TextureAtlas atlas) {
+			card50 = atlas.findRegion("50");
+			
+			if (card50 == null) {
+				
+				Gdx.app.debug(TAG, "Card50 is null");
+			}
+
+		}
+		
+	}
+	
+	public class AssetCard51 {
+		public final AtlasRegion card51;
+
+		public AssetCard51 (TextureAtlas atlas) {
+			card51 = atlas.findRegion("51");
+			
+			if (card51 == null) {
+				
+				Gdx.app.debug(TAG, "Card51 is null");
+			}
+
+		}
+		
+	}
+	
+	public class AssetCard52 {
+		public final AtlasRegion card52;
+
+		public AssetCard52 (TextureAtlas atlas) {
+			card52 = atlas.findRegion("52");
+			
+			if (card52 == null) {
+				
+				Gdx.app.debug(TAG, "Card52 is null");
+			}
+
+		}
+		
+	}
+	
 	public class AssetSounds {
 		
 		public final Sound shipShot;
@@ -833,10 +919,7 @@ public class Assets implements Disposable, AssetErrorListener {
 		this.assetManager = assetManager;
 		// set asset manager error handler
 		assetManager.setErrorListener(this);
-		
-		// load tiled map
-		assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
-		assetManager.load("maps/AirCommander1.tmx", TiledMap.class);
+
 		
 		// load texture atlas
 		assetManager.load(Constants.TEXTURE_ATLAS_OBJECTS, TextureAtlas.class);
@@ -857,11 +940,6 @@ public class Assets implements Disposable, AssetErrorListener {
 			Gdx.app.debug(TAG, "asset: " + a);
 		}
 		
-		map = assetManager.get("maps/AirCommander1.tmx");
-		mapObjectLayer = map.getLayers().get("Object Layer 1");
-		
-		mapObjects = mapObjectLayer.getObjects();
-		
 		TextureAtlas atlas = assetManager.get(Constants.TEXTURE_ATLAS_OBJECTS);
 
 		// enable texture filtering for pixel smoothing
@@ -872,16 +950,58 @@ public class Assets implements Disposable, AssetErrorListener {
 		// create game resource objects
 		fonts = new AssetFonts();
 		
-		plane1 = new AssetPlane1(atlas);
-		plane2 = new AssetPlane2(atlas);
-		plane3 = new AssetPlane3(atlas);
-		plane4 = new AssetPlane4(atlas);
-		plane5 = new AssetPlane5(atlas);
-		plane6 = new AssetPlane6(atlas);
-		plane7 = new AssetPlane7(atlas);
-		plane8 = new AssetPlane8(atlas);
-		plane9 = new AssetPlane9(atlas);
-		plane10 = new AssetPlane10(atlas);
+		card1 = new AssetCard1(atlas);
+		card2 = new AssetCard2(atlas);
+		card3 = new AssetCard3(atlas);
+		card4 = new AssetCard4(atlas);
+		card5 = new AssetCard5(atlas);
+		card6 = new AssetCard6(atlas);
+		card7 = new AssetCard7(atlas);
+		card8 = new AssetCard8(atlas);
+		card9 = new AssetCard9(atlas);
+		card10 = new AssetCard10(atlas);
+		card11 = new AssetCard11(atlas);
+		card12 = new AssetCard12(atlas);
+		card13 = new AssetCard13(atlas);
+		card14 = new AssetCard14(atlas);
+		card15 = new AssetCard15(atlas);
+		card16 = new AssetCard16(atlas);
+		card17 = new AssetCard17(atlas);
+		card18 = new AssetCard18(atlas);
+		card19 = new AssetCard19(atlas);
+		card20 = new AssetCard20(atlas);
+		card21 = new AssetCard21(atlas);
+		card22 = new AssetCard22(atlas);
+		card23 = new AssetCard23(atlas);
+		card24 = new AssetCard24(atlas);
+		card25 = new AssetCard25(atlas);
+		card26 = new AssetCard26(atlas);
+		card27 = new AssetCard27(atlas);
+		card28 = new AssetCard28(atlas);
+		card29 = new AssetCard29(atlas);
+		card30 = new AssetCard30(atlas);
+		card31 = new AssetCard31(atlas);
+		card32 = new AssetCard32(atlas);
+		card33 = new AssetCard33(atlas);
+		card34 = new AssetCard34(atlas);
+		card35 = new AssetCard35(atlas);
+		card36 = new AssetCard36(atlas);
+		card37 = new AssetCard37(atlas);
+		card38 = new AssetCard38(atlas);
+		card39 = new AssetCard39(atlas);
+		card40 = new AssetCard40(atlas);
+		card41 = new AssetCard41(atlas);
+		card42 = new AssetCard42(atlas);
+		card43 = new AssetCard43(atlas);
+		card44 = new AssetCard44(atlas);
+		card45 = new AssetCard45(atlas);
+		card46 = new AssetCard46(atlas);
+		card47 = new AssetCard47(atlas);
+		card48 = new AssetCard48(atlas);
+		card49 = new AssetCard49(atlas);
+		card50 = new AssetCard50(atlas);
+		card51 = new AssetCard51(atlas);
+		card52 = new AssetCard52(atlas);
 		
 		sounds = new AssetSounds(assetManager);
 		
