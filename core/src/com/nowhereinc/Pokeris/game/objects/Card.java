@@ -1,11 +1,17 @@
 package com.nowhereinc.Pokeris.game.objects;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.nowhereinc.Pokeris.game.Assets;
+import com.nowhereinc.Pokeris.game.Level;
 import com.nowhereinc.Pokeris.util.Constants;
 
 public class Card extends AbstractGameObject {
+	
+	public static final String TAG = Level.class.getName();
 	
 	private TextureRegion Card;
 	
@@ -358,6 +364,23 @@ public class Card extends AbstractGameObject {
     		
     	}
     	
+		// init physics values
+		
+		terminalVelocity.x = 2;
+		terminalVelocity.y = 2;
+		friction.x = 0;
+		friction.y = 0;
+		accleration.x = 5;
+		accleration.y = 5;
+		velocity.x = 0;
+		velocity.y = 0;
+    	
+    }
+    
+    public void setPosition(Vector2 pos) {
+    	
+    	position = pos;
+    	
     }
 
     public int getSuit() {
@@ -424,29 +447,36 @@ public class Card extends AbstractGameObject {
         }    
     }
 
-    public static void main(String[] args) {
+    public void update (float deltaTime) {
     	
-    	// must run program with -ea flag (java -ea ..) to
-    	// use assert statements
-        assert rankToString(ACE) == "Ace";
-        assert rankToString(DEUCE) == "Deuce";
-        assert rankToString(THREE) == "Three";
-        assert rankToString(FOUR) == "Four";
-        assert rankToString(FIVE) == "Five";
-        assert rankToString(SIX) == "Six";
-        assert rankToString(SEVEN) == "Seven";
-        assert rankToString(EIGHT) == "Eight";
-        assert rankToString(NINE) == "Nine";
-        assert rankToString(TEN) == "Ten";
-        assert rankToString(JACK) == "Jack";
-        assert rankToString(QUEEN) == "Queen";
-        assert rankToString(KING) == "King";
-
-        assert suitToString(DIAMONDS) == "Diamonds";
-        assert suitToString(CLUBS) == "Clubs";
-        assert suitToString(HEARTS) == "Hearts";
-        assert suitToString(SPADES) == "Spades";
-
+    	// if velocity y is zero start by moving card down
+    	
+    	if (velocity.y == 0) {
+    		
+    		velocity.y = -1.0f;
+    		
+    	}
+    	
+		// check to see if enemy is below bottom of game board, if so; place bottom of board and change velocity to 0
+		
+		if (position.y - Constants.CARDYSIZE * .5f < - Constants.GAMEBOARD_HEIGHT * .5f ) {
+			
+			velocity.y = 0.0f;
+			
+		}
+		
+		// get new velocity
+		
+		velocity.y += accleration.y * deltaTime * velocity.y;
+		
+		// limit speed to terminal velocity
+		
+		velocity.y = MathUtils.clamp(velocity.y, -terminalVelocity.y, terminalVelocity.y);
+		
+		//update position y
+		
+		position.y += velocity.y * deltaTime;
+    	
     }
     
 	public void render (SpriteBatch batch) {

@@ -3,14 +3,11 @@ package com.nowhereinc.Pokeris.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.nowhereinc.Pokeris.game.objects.AbstractGameObject;
 import com.nowhereinc.Pokeris.game.objects.Border;
 import com.nowhereinc.Pokeris.game.objects.Card;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
 import com.nowhereinc.Pokeris.util.Constants;
 import com.nowhereinc.Pokeris.util.Deck;
 import com.nowhereinc.Pokeris.util.Hand;
@@ -23,8 +20,8 @@ public class Level {
 	// Border
 	public Border border;
 	
-	// Card
-	public Card card;
+	// cards array
+	public Array<Card> cards;
 	
 	// Deck
 	public Deck deck;
@@ -44,6 +41,9 @@ public class Level {
 	// game over boolean
 	public boolean isGameOver;
 	
+	// card created boolean
+	private boolean isCardCreated;
+	
 	public Level () {
 
 		init();
@@ -56,6 +56,9 @@ public class Level {
 		
 		// Deck
 		deck = new Deck();
+		
+		// Shuffle Deck
+		deck.shuffleDeck();
 		
 		// set to new game
 		newGame = true;
@@ -72,14 +75,43 @@ public class Level {
 		obj.position.set(0,0);
 		border = (Border)obj;
 		
+		// init card created
+		isCardCreated = false;
+		
+		// bullets
+		cards = new Array<Card>();
+		
 		newLevel();
 		
 	}
 	
 	public void update (float deltaTime) {
-	
 		
+		if (!isCardCreated) {
+			
+			addCard();
+			isCardCreated = true;
+			
+		}
+		
+		// update cards
+		for (Card card : cards)
+			card.update(deltaTime);
+	
 	}	
+	
+	private void addCard() {
+		
+		Card card = deck.getNextCard();
+		
+		Vector2 dropStartPos;
+		dropStartPos = new Vector2 ( - Constants.GAMEBOARD_WIDTH * .5f + Constants.CARDXSIZE * .5f,
+									   Constants.GAMEBOARD_HEIGHT * .5f - Constants.CARDYSIZE * .5f);
+		
+		card.setPosition(dropStartPos);
+		cards.add((Card)card);
+		
+	}
 	
 	private void newLevel() {
 		
@@ -138,6 +170,10 @@ public class Level {
 		
 		// draw border
 		border.render(batch);
+		
+		// draw cards
+		for (Card card : cards)
+			card.render(batch);
 		
 	}
 
