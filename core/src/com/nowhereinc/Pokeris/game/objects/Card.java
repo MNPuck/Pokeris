@@ -38,6 +38,15 @@ public class Card extends AbstractGameObject {
     public final static int JACK  = 11;
     public final static int QUEEN = 12;
     public final static int KING  = 13;
+    
+    // move directions
+    private boolean moveLeft;
+    private boolean moveRight;
+    private boolean moveUp;
+    private boolean moveDown;
+    
+    // return true if card has stopped moving
+    private boolean isCardStopped;
 
     public Card(int rank, int suit) {
         assert isValidRank(rank);
@@ -374,6 +383,17 @@ public class Card extends AbstractGameObject {
 		accleration.y = 5;
 		velocity.x = 0;
 		velocity.y = 0;
+		
+		isCardStopped = false;
+    	
+    }
+    
+    public void getInput(boolean moveRightIn, boolean moveLeftIn, boolean moveUpIn, boolean moveDownIn) {
+    	
+    	moveRight = moveRightIn;
+    	moveLeft = moveLeftIn;
+    	moveUp = moveUpIn;
+    	moveDown = moveDownIn;
     	
     }
     
@@ -463,6 +483,8 @@ public class Card extends AbstractGameObject {
 			
 			velocity.y = 0.0f;
 			
+			isCardStopped = true;
+		
 		}
 		
 		// get new velocity
@@ -476,6 +498,26 @@ public class Card extends AbstractGameObject {
 		//update position y
 		
 		position.y += velocity.y * deltaTime;
+		
+		// move right
+		
+		if (moveRight) {
+			
+			position.x = position.x + Constants.CARDXSIZE;
+			
+		}
+		
+		if (moveLeft) {
+			
+			position.x = position.x - Constants.CARDXSIZE;
+			
+		}
+    	
+    }
+    
+    public boolean returnCardStopped() {
+    	
+    	return isCardStopped;
     	
     }
     

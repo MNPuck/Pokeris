@@ -31,6 +31,11 @@ public class WorldController extends InputAdapter {
 	private float tsXAxis;
 	private float tsYAxis;
 	
+	private boolean moveLeft;
+	private boolean moveRight;
+	private boolean moveUp;
+	private boolean moveDown;
+	
 	Vector2 cameraPosition;
 
 	public WorldController (DirectedGame game) {
@@ -95,12 +100,17 @@ public class WorldController extends InputAdapter {
 		
 		gameOver = level.returnIsGameOver();
 		
+		moveRight = false;
+		moveLeft = false;
+		moveUp = false;
+		moveDown = false;
+		
 		if (!gameOver) {
 		
 			switch (Gdx.app.getType()) {
 		
 				case Desktop: 
-					readScreenInput(worldRenderer);
+					readKeyboardInput();
 					break;
 			
 				case Android:
@@ -130,6 +140,45 @@ public class WorldController extends InputAdapter {
 				
 		}
 	
+	}
+	
+	private void readKeyboardInput() {
+		
+		// if down is pressed speed up piece drop
+		
+		if (Gdx.input.isKeyJustPressed(Keys.DOWN)) {
+			
+			moveDown = true;
+	
+		}
+		
+		// if up is pressed hard drop piece
+		
+		if (Gdx.input.isKeyJustPressed(Keys.UP)) {
+			
+			moveUp = true;
+			
+		}
+		
+		// if right is pressed move card right
+		
+		if (Gdx.input.isKeyJustPressed(Keys.RIGHT)) {
+			
+			moveRight = true;
+			
+		}
+		
+		// if left is pressed move card left
+		
+		
+		if (Gdx.input.isKeyJustPressed(Keys.LEFT)) {
+			
+			moveLeft = true;
+			
+		}
+		
+		level.activeCard.getInput(moveRight, moveLeft, moveUp, moveDown);
+		
 	}
 	
 	private void readScreenInput(WorldRenderer worldRenderer) {

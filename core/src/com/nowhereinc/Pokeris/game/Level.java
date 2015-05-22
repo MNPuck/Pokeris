@@ -23,6 +23,9 @@ public class Level {
 	// cards array
 	public Array<Card> cards;
 	
+	// current active card
+	public Card activeCard;
+	
 	// Deck
 	public Deck deck;
 	
@@ -40,9 +43,6 @@ public class Level {
 	
 	// game over boolean
 	public boolean isGameOver;
-	
-	// card created boolean
-	private boolean isCardCreated;
 	
 	public Level () {
 
@@ -75,10 +75,7 @@ public class Level {
 		obj.position.set(0,0);
 		border = (Border)obj;
 		
-		// init card created
-		isCardCreated = false;
-		
-		// bullets
+		// cards
 		cards = new Array<Card>();
 		
 		newLevel();
@@ -87,16 +84,17 @@ public class Level {
 	
 	public void update (float deltaTime) {
 		
-		if (!isCardCreated) {
+		// if active card is stopped add a new card
+		
+		if (activeCard.returnCardStopped()) {
 			
+			cards.add(activeCard);
 			addCard();
-			isCardCreated = true;
 			
 		}
 		
-		// update cards
-		for (Card card : cards)
-			card.update(deltaTime);
+		// update active cards
+		activeCard.update(deltaTime);
 	
 	}	
 	
@@ -109,7 +107,7 @@ public class Level {
 									   Constants.GAMEBOARD_HEIGHT * .5f - Constants.CARDYSIZE * .5f);
 		
 		card.setPosition(dropStartPos);
-		cards.add((Card)card);
+		activeCard = card;
 		
 	}
 	
@@ -139,6 +137,7 @@ public class Level {
 		if (newGame) {
 			
 			newGame = false;
+			addCard();
 			
 		}
 		
@@ -171,7 +170,10 @@ public class Level {
 		// draw border
 		border.render(batch);
 		
-		// draw cards
+		// draw active card
+		activeCard.render(batch);
+		
+		// draw inactive cards
 		for (Card card : cards)
 			card.render(batch);
 		
