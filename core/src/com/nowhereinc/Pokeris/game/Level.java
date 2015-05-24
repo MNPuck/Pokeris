@@ -103,7 +103,8 @@ public class Level {
 		// update active cards
 		activeCard.update(deltaTime, grid);
 		
-		// loop thru grid rows, if there are 5 cards check for valid poker hand
+		// loop thru grid rows, if there are 5 cards check for valid poker hand delete row and move
+		// rows down
 		
 		for (int row = 1; row < 6; row++) {
 			
@@ -144,15 +145,91 @@ public class Level {
 				
 				if (rowPokerHand > 1) {
 					
-					Gdx.app.debug(TAG, "Row is " + row);
-					Gdx.app.debug(TAG, "Poker Hand is " + rowPokerHand);
+					score += rowHand.returnScore(rowPokerHand);
+					
+					grid.deleteRow(row);
+					
+					// change card position in card for rows which fell down after deletion
+					
+					for (int i = row; i < 6; i++) {
+						
+						for (int j = 1; j < 6; j++) {
+							
+							if (grid.getIsFull(i, j)) {
+								
+								Card changePosCard = grid.getCard(i, j);
+							
+								for (Card card : cards) {
+								
+									if (changePosCard.getRank() == card.getRank() &&
+										changePosCard.getSuit() == card.getSuit()) {
+									
+										card.DropRow();
+									
+									}
+								
+								}
+								
+							}
+							
+						}
+						
+					}
 					
 				}
-				
+					
 			}	
 			
 		}
 		
+		// loop thru columns and delete column if valid poker hand is made
+		
+		for (int column = 1; column < 6; column++) {
+			
+			int rowCounter = 0;
+			
+			Hand columnHand;
+			
+			columnHand = new Hand();
+			
+			for (int row = 1; row < 6; row++) {
+				
+				if (grid.getIsFull(row, column)) {
+					
+					Card columnCard;
+					columnCard = grid.getCard(row, column);
+			
+					columnHand.putCard(columnCard.getRank(), columnCard.getSuit());
+					
+					rowCounter++;
+					
+				}
+				
+				else {
+					
+					break;
+					
+				}
+				
+			}
+				
+			if (rowCounter == 5) {
+					
+				columnHand.sortCards();
+				int columnPokerHand = columnHand.return5CardPokerHand();
+					
+				if (columnPokerHand > 1) {
+						
+					score += columnHand.returnScore(columnPokerHand);
+						
+					grid.deleteColumn(column);
+						
+				}
+				
+			}
+			
+		}
+
 	}	
 	
 	private void addCard() {
@@ -162,7 +239,7 @@ public class Level {
 		Vector2 dropStartPos;
 		dropStartPos = new Vector2 (0, Constants.GAMEBOARD_HEIGHT * .5f - Constants.CARDYSIZE * .5f);
 		
-		card.setPosition(dropStartPos);
+		card.setPosition(dropStartPos.x, dropStartPos.y);
 		activeCard = card;
 		
 	}
@@ -227,11 +304,33 @@ public class Level {
 		border.render(batch);
 		
 		// draw active card
-		activeCard.render(batch);
+		activeCard.render(batch, 0, 0);
 		
-		// draw inactive cards
-		for (Card card : cards)
-			card.render(batch);
+		for (int row = 1; row < 6; row++) {
+			
+			for (int column = 1; column < 6; column++) {
+				
+				if (grid.getIsFull(row, column)) {
+					
+					Card currentCard = grid.getCard(row, column);
+					
+					for (Card card : cards) {
+						
+						if (currentCard.getRank() == card.getRank() &&
+							currentCard.getSuit() == card.getSuit()) {
+							
+							card.render(batch, row, column);
+							
+							
+						}
+						
+					}
+					
+				}
+				
+			}
+			
+		}
 		
 	}
 

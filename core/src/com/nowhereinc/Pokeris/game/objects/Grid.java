@@ -11,6 +11,9 @@ public class Grid {
     private Card[][] cards; 
     private boolean[][] isFull;
     
+    private float positionX;
+    private float positionY;
+    
     public Grid() {
     	
         cards = new Card[numRows][numColumns];
@@ -52,6 +55,42 @@ public class Grid {
     
     public void deleteRow (int row) {
     	
+    	for (int column = 1; column < 6; column++) {
+    		
+    		deleteCard(row, column);
+    		
+    	}
+    	
+    	// move rows down 
+    	
+    	for (int moveRow = row + 1; moveRow < 6; moveRow++) {
+    		
+    		for (int moveColumn = 1; moveColumn < 6; moveColumn++) {
+    			
+    			if (getIsFull(moveRow, moveColumn)) {
+    			
+    				Card moveCard = getCard(moveRow, moveColumn);
+    			
+    				putCard(moveRow - 1, moveColumn, moveCard.getRank(), moveCard.getSuit());
+    				
+    			
+    			}
+    			
+    			isFull[moveRow - 1][moveColumn - 1] = false;
+    			
+    		}
+    		
+    	}
+    	
+    }
+    
+    public void deleteColumn (int column) {
+    	
+    	for (int row = 1; row < 6; row++) {
+    		
+    		deleteCard(row, column);
+    		
+    	}
     	
     }
     

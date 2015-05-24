@@ -407,9 +407,16 @@ public class Card extends AbstractGameObject {
     	
     }
     
-    public void setPosition(Vector2 pos) {
+    public void setPosition(float posX, float posY) {
     	
-    	position = pos;
+    	position.x = posX;
+    	position.y = posY;
+    	
+    }
+    
+    public void DropRow() {
+    	
+    	position.y = position.y - Constants.CARDYSIZE;
     	
     }
 
@@ -521,6 +528,24 @@ public class Card extends AbstractGameObject {
 		
    		}
 		
+		// move right
+		
+		if (moveRight && column < 5 && !isCardStopped) {
+			
+			position.x = position.x + Constants.CARDXSIZE;
+			column++;
+			
+		}
+		
+		// move left
+		
+		if (moveLeft && column > 1 && !isCardStopped) {
+			
+			position.x = position.x - Constants.CARDXSIZE;
+			column--;
+			
+		}
+		
 		//update position y
 		
 		position.y += velocity.y * deltaTime;
@@ -558,22 +583,6 @@ public class Card extends AbstractGameObject {
    			grid.putCard(emptyRow, column, rank, suit);
    			
    		}
-		
-		// move right
-		
-		if (moveRight && column < 5 && !isCardStopped) {
-			
-			position.x = position.x + Constants.CARDXSIZE;
-			column++;
-			
-		}
-		
-		if (moveLeft && column > 1 && !isCardStopped) {
-			
-			position.x = position.x - Constants.CARDXSIZE;
-			column--;
-			
-		}
     	
     }
     
@@ -583,12 +592,15 @@ public class Card extends AbstractGameObject {
     	
     }
     
-	public void render (SpriteBatch batch) {
+    
+    
+	public void render (SpriteBatch batch, int row, int column) {
 		
 		TextureRegion reg = null;
 		
 		float newPositionx = position.x - (dimension.x * .5f);
 		float newPositiony = position.y - (dimension.y * .5f);
+	
 
 		reg = Card;
 		

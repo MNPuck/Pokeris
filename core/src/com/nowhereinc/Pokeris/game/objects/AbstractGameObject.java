@@ -37,6 +37,4 @@ public abstract class AbstractGameObject {
 		
 	}
 
-	public abstract void render (SpriteBatch batch);
-
 }

@@ -285,6 +285,39 @@ public class Hand {
 		
 	}	
 	
+	public int returnScore(int pokerHandValue) {
+		
+		if (pokerHandValue == 2)
+			return 100;
+		
+		if (pokerHandValue == 3)
+			return 200;
+		
+		if (pokerHandValue == 4)
+			return 300;
+		
+		if (pokerHandValue == 5)
+			return 400;
+		
+		if (pokerHandValue == 6)
+			return 600;
+		
+		if (pokerHandValue == 7)
+			return 900;
+		
+		if (pokerHandValue == 8)
+			return 2500;
+		
+		if (pokerHandValue == 9)
+			return 5000;
+		
+		if (pokerHandValue == 10)
+			return 25000;
+		
+		return 0;
+	
+	}
+	
 	public int returnPokerRoyalties5(int pokerHandValue) {
 		
 		if (pokerHandValue == 5)
