@@ -414,7 +414,7 @@ public class Card extends AbstractGameObject {
     	
     }
     
-    public void DropRow() {
+    public void dropRow() {
     	
     	position.y = position.y - Constants.CARDYSIZE;
     	
@@ -484,7 +484,7 @@ public class Card extends AbstractGameObject {
         }    
     }
 
-    public void update (float deltaTime, Grid grid) {
+    public void update (float deltaTime, Grid grid, int levelNumber) {
     	
     	// empty row variable
     	int emptyRow = 0;
@@ -499,6 +499,8 @@ public class Card extends AbstractGameObject {
     		velocity.y = -1.0f;
     		column = 3;
     		row = 12;
+    		
+    		terminalVelocity.y += levelNumber;
     		
     	}
    		
@@ -520,7 +522,7 @@ public class Card extends AbstractGameObject {
 		
    			// get new velocity
 		
-   			velocity.y += accleration.y * deltaTime * velocity.y;
+   			velocity.y += (accleration.y * deltaTime * velocity.y);
 		
    			// limit speed to terminal velocity
 		
@@ -592,16 +594,13 @@ public class Card extends AbstractGameObject {
     	
     }
     
-    
-    
-	public void render (SpriteBatch batch, int row, int column) {
+	public void render (SpriteBatch batch) {
 		
 		TextureRegion reg = null;
 		
 		float newPositionx = position.x - (dimension.x * .5f);
 		float newPositiony = position.y - (dimension.y * .5f);
 	
-
 		reg = Card;
 		
 		batch.draw(reg.getTexture(), newPositionx, newPositiony, origin.x, origin.y, dimension.x, dimension.y, scale.x, scale.y,

@@ -17,24 +17,30 @@ public class Constants {
 	public static final float LEVEL_INPUT_HEIGHT = 64.0f;
 
 	// GUI Width
-	public static final float VIEWPORT_GUI_WIDTH = 1920.0f;
+	public static final float VIEWPORT_GUI_WIDTH = 1080.0f;
 
 	// GUI Height
-	public static final float VIEWPORT_GUI_HEIGHT = 1080.0f;
+	public static final float VIEWPORT_GUI_HEIGHT = 1920.0f;
 
 	// Location of description file for texture atlas
 	public static final String TEXTURE_ATLAS_OBJECTS = 
 	"images/Pokeris.pack.atlas";
 	
 	// Number of Levels
-	public static final int NUMBEROFLEVELS = 1;
+	public static final int NUMBEROFLEVELS = 10;
+	
+	// Number of Columns
+	public static final int NUMBEROFCOLUMNS = 5;
+	
+	// Number of Rows
+	public static final int NUMBEROFROWS = 5;
 
 	// Delay after game over
 	public static final float TIME_DELAY_GAME_OVER = 3;
 	
 	// Size of card
 	public static final float CARDXSIZE = 1f;
-	public static final float CARDYSIZE = 1f;
+	public static final float CARDYSIZE = 1.25f;
 	
 	// Game preferences file
 	public static final String PREFERENCES = "pokeris.prefs";

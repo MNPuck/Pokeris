@@ -48,6 +48,9 @@ public class Level {
 	// game over boolean
 	public boolean isGameOver;
 	
+	// cards remaining
+	private int cardsRemaining;
+	
 	public Level () {
 
 		init();
@@ -57,18 +60,6 @@ public class Level {
 		
 		// level number
 		levelNumber = 0;
-		
-		// Deck
-		deck = new Deck();
-		
-		// Shuffle Deck
-		deck.shuffleDeck();
-		
-	    // Grid
-		grid = new Grid();
-		
-		// set to new game
-		newGame = true;
 		
 		// set score to 0
 		score = 0;
@@ -82,9 +73,6 @@ public class Level {
 		obj.position.set(0,0);
 		border = (Border)obj;
 		
-		// cards
-		cards = new Array<Card>();
-		
 		newLevel();
 		
 	}
@@ -95,13 +83,35 @@ public class Level {
 		
 		if (activeCard.returnCardStopped()) {
 			
-			cards.add(activeCard);
-			addCard();
+			cardsRemaining--;
+			
+			if (cardsRemaining > 0) {
+			
+				cards.add(activeCard);
+				addCard();
+	
+			}
+			
+			else {
+				
+				newLevel();
+				
+			}
 			
 		}
 		
 		// update active cards
-		activeCard.update(deltaTime, grid);
+		activeCard.update(deltaTime, grid, levelNumber);
+		
+		// grid row update
+		updateRows();
+		
+		// grid column update
+		updateColumns();
+
+	}	
+	
+	private void updateRows() {
 		
 		// loop thru grid rows, if there are 5 cards check for valid poker hand delete row and move
 		// rows down
@@ -164,7 +174,7 @@ public class Level {
 									if (changePosCard.getRank() == card.getRank() &&
 										changePosCard.getSuit() == card.getSuit()) {
 									
-										card.DropRow();
+										card.dropRow();
 									
 									}
 								
@@ -181,6 +191,10 @@ public class Level {
 			}	
 			
 		}
+			
+	}
+	
+	private void updateColumns() {
 		
 		// loop thru columns and delete column if valid poker hand is made
 		
@@ -229,8 +243,8 @@ public class Level {
 			}
 			
 		}
-
-	}	
+		
+	}
 	
 	private void addCard() {
 		
@@ -267,18 +281,30 @@ public class Level {
 	
 	private void loadLevel() {
 		
-		if (newGame) {
-			
-			newGame = false;
-			addCard();
-			
-		}
+		// Deck
+		deck = null;
+		deck = new Deck();
 		
-		else {
+		// Shuffle Deck
+		deck.shuffleDeck();
+		
+	    // Grid
+		grid = null;
+		grid = new Grid();
+		
+		// cards
+		cards = null;
+		cards = new Array<Card>();
+	
+		cardsRemaining = 52;
+		addCard();
 			
-			
-		}
-			
+	}
+	
+	public int returnCardsRemaining() {
+		
+		return cardsRemaining;
+		
 	}
 	
 	public int returnLevelNumber() {
@@ -304,7 +330,14 @@ public class Level {
 		border.render(batch);
 		
 		// draw active card
-		activeCard.render(batch, 0, 0);
+		activeCard.render(batch);
+		
+		//draw cards from grid
+		renderGrid(batch);
+		
+	}
+	
+	private void renderGrid(SpriteBatch batch) {
 		
 		for (int row = 1; row < 6; row++) {
 			
@@ -319,7 +352,7 @@ public class Level {
 						if (currentCard.getRank() == card.getRank() &&
 							currentCard.getSuit() == card.getSuit()) {
 							
-							card.render(batch, row, column);
+							card.render(batch);
 							
 							
 						}

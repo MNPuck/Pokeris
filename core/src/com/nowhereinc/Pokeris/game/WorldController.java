@@ -6,6 +6,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.Controllers;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.nowhereinc.Pokeris.screens.DirectedGame;
@@ -28,13 +29,14 @@ public class WorldController extends InputAdapter {
 	public boolean escPressed;
 	public boolean gameOver;
 	
-	private float tsXAxis;
-	private float tsYAxis;
-	
 	private boolean moveLeft;
 	private boolean moveRight;
 	private boolean moveUp;
 	private boolean moveDown;
+	
+	private boolean justTouched;
+	
+	private Rectangle arrowBox;
 	
 	Vector2 cameraPosition;
 
@@ -51,13 +53,9 @@ public class WorldController extends InputAdapter {
 		switch (Gdx.app.getType()) {
 		
 			case Desktop: 
-				tsXAxis = 0;
-				tsYAxis = 0;
 				break;
 				
 			case Android:
-				tsXAxis = 0;
-				tsYAxis = 0;
 				break;
 				
 			default:
@@ -69,6 +67,10 @@ public class WorldController extends InputAdapter {
 		selectPressed = false;
 		gameOver = false;
 		escPressed = false;
+		
+		arrowBox = new Rectangle();
+		
+		justTouched = false;
 		
 		initLevel();
 		
@@ -114,7 +116,7 @@ public class WorldController extends InputAdapter {
 					break;
 			
 				case Android:
-					readScreenInput(worldRenderer);
+					readScreenInput();
 					break;
 			
 				default:
@@ -185,36 +187,75 @@ public class WorldController extends InputAdapter {
 		
 	}
 	
-	private void readScreenInput(WorldRenderer worldRenderer) {
+	private void readScreenInput() {
 	
-		// see if touch is in green sprite
+		// see if touch is in up arrow box
 		
-		if (Gdx.input.isTouched()) {
+		if (Gdx.input.isTouched() &&
+			!justTouched) {
 			
-			tsXAxis = Gdx.input.getX();
-			tsYAxis = Gdx.input.getY();
+			justTouched = true;
 			
-			//set up inputs to pass to convert
-			Vector3 tsInputs;
-			tsInputs = new Vector3(tsXAxis, tsYAxis, 0f);
+			Vector2 tsAxis = new Vector2(0,0);
 			
-		    //set up output from convert
-			Vector3 tsOutput;
-		
-			//call convert
-			tsOutput = worldRenderer.cameraUnproject(tsInputs);
-		
-			//call player module
-			float wuXAxis = tsOutput.x;
-			float wuYAxis = tsOutput.y;
+			tsAxis.x = Gdx.input.getX();
+			tsAxis.y = Gdx.input.getY();
 			
-			// level.player.inputTouchScreen(wuXAxis, wuYAxis);
+			// check to see if touch is in down rectangle
+			float x = Constants.VIEWPORT_GUI_WIDTH * .5f - 63;
+			float y = Constants.VIEWPORT_GUI_HEIGHT - 75;
+			
+			arrowBox.set(x, y, 125, 125);
+			
+			if (arrowBox.contains(tsAxis)) {
+				
+				moveDown = true;
+				
+			}
+			
+			// check to see if touch is in left rectangle
+			x = Constants.VIEWPORT_GUI_WIDTH * .5f - 107;
+			y = Constants.VIEWPORT_GUI_HEIGHT - 107;
+			
+			arrowBox.set(x, y, 125, 125);
+			
+			if (arrowBox.contains(tsAxis)) {
+				
+				moveLeft = true;
+				
+			}
+			
+			// check to see if touch is in right rectangle
+			x = Constants.VIEWPORT_GUI_WIDTH * .5f - 10;
+			y = Constants.VIEWPORT_GUI_HEIGHT - 100;
+			
+			arrowBox.set(x, y, 125, 125);
+			
+			if (arrowBox.contains(tsAxis)) {
+				
+				moveRight = true;
+				
+			}
+			
+			// check to see if touch is in up rectangle
+			x = Constants.VIEWPORT_GUI_WIDTH * .5f - 55;
+			y = Constants.VIEWPORT_GUI_HEIGHT - 125;
+			
+			arrowBox.set(x, y, 125, 125);
+			
+			if (arrowBox.contains(tsAxis)) {
+				
+				moveUp = true;
+				
+			}
+			
+			level.activeCard.getInput(moveRight, moveLeft, moveUp, moveDown);
 				
 		}
 		
-		if (!Gdx.input.isTouched()) {
-				
-			// level.player.inputTouchScreen(-99, -99);
+		else {
+			
+			justTouched = false;
 			
 		}
 				

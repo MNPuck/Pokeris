@@ -76,8 +76,8 @@ public class WorldRenderer implements Disposable {
 		// draw multiplier in upper middle
 		//renderGuiMultiplier(batch);
 		
-		// draw lives in upper right
-		renderGuiLives(batch);
+		// draw cards remaining in upper right
+		renderGuiCardsRemaining(batch);
 		
 		// draw bombs to the left of lives
 		// renderGuiBombs(batch);
@@ -90,8 +90,60 @@ public class WorldRenderer implements Disposable {
 		
 		// draw game over text
 		renderGuiGameOverMessage(batch);
+		
+		// draw down arrow
+		renderGuiDownArrow(batch);
+		
+		// draw left arrow
+		renderGuiLeftArrow(batch);
+		
+		// draw right arrow
+		renderGuiRightArrow(batch);
+		
+		// draw up arrow
+		renderGuiUpArrow(batch);
 
 		batch.end();
+		
+	}
+	
+	private void renderGuiDownArrow (SpriteBatch batch) {
+		
+		float x = cameraGUI.viewportWidth * .5f - 63;
+		float y = cameraGUI.viewportHeight - 75;
+		
+		batch.draw(Assets.instance.downArrow.downArrow,
+				x, y, 50, 50, 125, 125, 1f, -1f, 0);
+		
+	}
+	
+	private void renderGuiLeftArrow (SpriteBatch batch) {
+		
+		float x = cameraGUI.viewportWidth * .5f - 107;
+		float y = cameraGUI.viewportHeight - 107;
+		
+		batch.draw(Assets.instance.leftArrow.leftArrow,
+				x, y, 50, 50, 125, 125, 1f, -1f, 0);
+		
+	}
+	
+	private void renderGuiRightArrow (SpriteBatch batch) {
+		
+		float x = cameraGUI.viewportWidth * .5f - 10;
+		float y = cameraGUI.viewportHeight - 100;
+		
+		batch.draw(Assets.instance.rightArrow.rightArrow,
+				x, y, 50, 50, 125, 125, 1f, -1f, 0);
+		
+	}
+	
+	private void renderGuiUpArrow (SpriteBatch batch) {
+		
+		float x = cameraGUI.viewportWidth * .5f - 55;
+		float y = cameraGUI.viewportHeight - 125;
+		
+		batch.draw(Assets.instance.upArrow.upArrow,
+				x, y, 50, 50, 125, 125, 1f, -1f, 0);
 		
 	}
 	
@@ -115,14 +167,14 @@ public class WorldRenderer implements Disposable {
 
 	}
 	
-	private void renderGuiLives (SpriteBatch batch) {
-		float x = cameraGUI.viewportWidth - 155;
+	private void renderGuiCardsRemaining (SpriteBatch batch) {
+		float x = cameraGUI.viewportWidth - 305;
 		float y = 15;
 		
 		BitmapFont fpsFont = Assets.instance.fonts.defaultBig;
 		
 		fpsFont.setColor(0, 1, 0, 1);
-		fpsFont.draw(batch, "Lives: 0", x , y);		
+		fpsFont.draw(batch, "Cards Remaining: " + worldController.level.returnCardsRemaining() , x , y);		
 		fpsFont.setColor(1, 1, 1, 1); // white
 		
 	}

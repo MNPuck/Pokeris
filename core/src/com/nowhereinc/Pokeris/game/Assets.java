@@ -84,10 +84,13 @@ public class Assets implements Disposable, AssetErrorListener {
 	public AssetCard50 card50;
 	public AssetCard51 card51;
 	public AssetCard52 card52;	
-
+	
+	public AssetDownArrow downArrow;
+	public AssetLeftArrow leftArrow;
+	public AssetRightArrow rightArrow;
+	public AssetUpArrow upArrow;
 	
 	public AssetSounds sounds;
-	
 
 	// singleton: prevent instantiation from other classes
 	private Assets () {
@@ -112,6 +115,7 @@ public class Assets implements Disposable, AssetErrorListener {
 			defaultSmall.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 			defaultNormal.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 			defaultBig.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
+			
 		}
 	}
 	
@@ -910,6 +914,66 @@ public class Assets implements Disposable, AssetErrorListener {
 		
 	}
 	
+	public class AssetDownArrow {
+		public final AtlasRegion downArrow;
+
+		public AssetDownArrow (TextureAtlas atlas) {
+			downArrow = atlas.findRegion("DownArrow");
+			
+			if (downArrow == null) {
+				
+				Gdx.app.debug(TAG,"Down arrow is null");
+			}
+
+		}
+		
+	}
+	
+	public class AssetLeftArrow {
+		public final AtlasRegion leftArrow;
+
+		public AssetLeftArrow (TextureAtlas atlas) {
+			leftArrow = atlas.findRegion("LeftArrow");
+			
+			if (leftArrow == null) {
+				
+				Gdx.app.debug(TAG,"Left arrow is null");
+			}
+
+		}
+		
+	}
+	
+	public class AssetRightArrow {
+		public final AtlasRegion rightArrow;
+
+		public AssetRightArrow (TextureAtlas atlas) {
+			rightArrow = atlas.findRegion("RightArrow");
+			
+			if (rightArrow == null) {
+				
+				Gdx.app.debug(TAG,"Right arrow is null");
+			}
+
+		}
+		
+	}
+	
+	public class AssetUpArrow {
+		public final AtlasRegion upArrow;
+
+		public AssetUpArrow (TextureAtlas atlas) {
+			upArrow = atlas.findRegion("UpArrow");
+			
+			if (upArrow == null) {
+				
+				Gdx.app.debug(TAG,"Up arrow is null");
+			}
+
+		}
+		
+	}
+	
 	public class AssetSounds {
 		
 		public final Sound shipShot;
@@ -1020,6 +1084,11 @@ public class Assets implements Disposable, AssetErrorListener {
 		card50 = new AssetCard50(atlas);
 		card51 = new AssetCard51(atlas);
 		card52 = new AssetCard52(atlas);
+		
+		downArrow = new AssetDownArrow(atlas);	
+		leftArrow = new AssetLeftArrow(atlas);
+		rightArrow = new AssetRightArrow(atlas);
+		upArrow = new AssetUpArrow(atlas);
 		
 		sounds = new AssetSounds(assetManager);
 		

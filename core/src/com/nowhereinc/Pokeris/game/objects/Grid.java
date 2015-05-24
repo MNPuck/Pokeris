@@ -11,9 +11,6 @@ public class Grid {
     private Card[][] cards; 
     private boolean[][] isFull;
     
-    private float positionX;
-    private float positionY;
-    
     public Grid() {
     	
         cards = new Card[numRows][numColumns];
