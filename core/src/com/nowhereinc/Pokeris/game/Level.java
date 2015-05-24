@@ -6,11 +6,12 @@ import com.badlogic.gdx.utils.Array;
 import com.nowhereinc.Pokeris.game.objects.AbstractGameObject;
 import com.nowhereinc.Pokeris.game.objects.Border;
 import com.nowhereinc.Pokeris.game.objects.Card;
+import com.nowhereinc.Pokeris.game.objects.Deck;
+import com.nowhereinc.Pokeris.game.objects.Grid;
+import com.nowhereinc.Pokeris.game.objects.Hand;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.nowhereinc.Pokeris.util.Constants;
-import com.nowhereinc.Pokeris.util.Deck;
-import com.nowhereinc.Pokeris.util.Hand;
 import com.nowhereinc.Pokeris.game.Assets;
 
 public class Level {
@@ -31,6 +32,9 @@ public class Level {
 	
 	// Hand
 	public Hand hand;
+	
+	// Grid
+	public Grid grid;
 	
 	// variable to store level number
 	public int levelNumber;
@@ -59,6 +63,9 @@ public class Level {
 		
 		// Shuffle Deck
 		deck.shuffleDeck();
+		
+	    // Grid
+		grid = new Grid();
 		
 		// set to new game
 		newGame = true;
@@ -94,7 +101,7 @@ public class Level {
 		}
 		
 		// update active cards
-		activeCard.update(deltaTime);
+		activeCard.update(deltaTime, grid);
 	
 	}	
 	
@@ -103,8 +110,7 @@ public class Level {
 		Card card = deck.getNextCard();
 		
 		Vector2 dropStartPos;
-		dropStartPos = new Vector2 ( - Constants.GAMEBOARD_WIDTH * .5f + Constants.CARDXSIZE * .5f,
-									   Constants.GAMEBOARD_HEIGHT * .5f - Constants.CARDYSIZE * .5f);
+		dropStartPos = new Vector2 (0, Constants.GAMEBOARD_HEIGHT * .5f - Constants.CARDYSIZE * .5f);
 		
 		card.setPosition(dropStartPos);
 		activeCard = card;

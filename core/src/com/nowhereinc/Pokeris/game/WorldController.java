@@ -146,7 +146,8 @@ public class WorldController extends InputAdapter {
 		
 		// if down is pressed speed up piece drop
 		
-		if (Gdx.input.isKeyJustPressed(Keys.DOWN)) {
+		if (Gdx.input.isKeyPressed(Keys.DOWN) ||
+			Gdx.input.isKeyPressed(Keys.S)) {
 			
 			moveDown = true;
 	
@@ -154,7 +155,8 @@ public class WorldController extends InputAdapter {
 		
 		// if up is pressed hard drop piece
 		
-		if (Gdx.input.isKeyJustPressed(Keys.UP)) {
+		if (Gdx.input.isKeyJustPressed(Keys.UP) ||
+			Gdx.input.isKeyJustPressed(Keys.W)) {
 			
 			moveUp = true;
 			
@@ -162,7 +164,8 @@ public class WorldController extends InputAdapter {
 		
 		// if right is pressed move card right
 		
-		if (Gdx.input.isKeyJustPressed(Keys.RIGHT)) {
+		if (Gdx.input.isKeyJustPressed(Keys.RIGHT) ||
+			Gdx.input.isKeyJustPressed(Keys.D)) {
 			
 			moveRight = true;
 			
@@ -171,7 +174,8 @@ public class WorldController extends InputAdapter {
 		// if left is pressed move card left
 		
 		
-		if (Gdx.input.isKeyJustPressed(Keys.LEFT)) {
+		if (Gdx.input.isKeyJustPressed(Keys.LEFT) ||
+			Gdx.input.isKeyJustPressed(Keys.A)) {
 			
 			moveLeft = true;
 			

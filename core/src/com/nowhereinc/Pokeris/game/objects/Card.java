@@ -45,6 +45,12 @@ public class Card extends AbstractGameObject {
     private boolean moveUp;
     private boolean moveDown;
     
+    // column
+    private int column;
+    
+    // row 
+    private int row;
+    
     // return true if card has stopped moving
     private boolean isCardStopped;
 
@@ -301,19 +307,19 @@ public class Card extends AbstractGameObject {
     		
     	}
     	
-    	if (rank == 3 && suit == 1) {
+    	if (rank == 4 && suit == 1) {
     		
     		Card = Assets.instance.card41.card41;
     		
     	}
     	
-    	if (rank == 3 && suit == 2) {
+    	if (rank == 4 && suit == 2) {
     		
     		Card = Assets.instance.card42.card42;
     		
     	}
     	
-    	if (rank == 3 && suit == 3) {
+    	if (rank == 4 && suit == 3) {
     		
     		Card = Assets.instance.card43.card43;
     		
@@ -383,6 +389,10 @@ public class Card extends AbstractGameObject {
 		accleration.y = 5;
 		velocity.x = 0;
 		velocity.y = 0;
+		
+		// init column and row
+		column = 0;
+		row = 0;
 		
 		isCardStopped = false;
     	
@@ -467,49 +477,101 @@ public class Card extends AbstractGameObject {
         }    
     }
 
-    public void update (float deltaTime) {
+    public void update (float deltaTime, Grid grid) {
+    	
+    	// empty row variable
+    	int emptyRow = 0;
+    	
+    	// empty row position
+    	float emptyRowPos = 0f;
     	
     	// if velocity y is zero start by moving card down
     	
     	if (velocity.y == 0) {
     		
     		velocity.y = -1.0f;
+    		column = 3;
+    		row = 12;
     		
     	}
-    	
-		// check to see if enemy is below bottom of game board, if so; place bottom of board and change velocity to 0
+   		
+   		// increase velocity variables if down is press
+   		
+   		if (moveDown && !isCardStopped) {
+   			
+   			// get new velocity
+   			
+   			velocity.y += (accleration.y * deltaTime * velocity.y);
+   			
+   			// limit speed to terminal velocity
+   			
+   			velocity.y = MathUtils.clamp(velocity.y, -terminalVelocity.y * 3f, terminalVelocity.y * 3f);	
+   			
+   		}
+   		
+   		if (!moveDown && !isCardStopped) {
 		
-		if (position.y - Constants.CARDYSIZE * .5f < - Constants.GAMEBOARD_HEIGHT * .5f ) {
-			
-			velocity.y = 0.0f;
-			
-			isCardStopped = true;
+   			// get new velocity
 		
-		}
+   			velocity.y += accleration.y * deltaTime * velocity.y;
 		
-		// get new velocity
+   			// limit speed to terminal velocity
 		
-		velocity.y += accleration.y * deltaTime * velocity.y;
+   			velocity.y = MathUtils.clamp(velocity.y, -terminalVelocity.y, terminalVelocity.y);
 		
-		// limit speed to terminal velocity
-		
-		velocity.y = MathUtils.clamp(velocity.y, -terminalVelocity.y, terminalVelocity.y);
+   		}
 		
 		//update position y
 		
 		position.y += velocity.y * deltaTime;
 		
+    	// get row data for current column
+    	for (int i = 1; i < 13; i++) {
+    		
+    		if (!grid.getIsFull(i, column)) {
+    			
+    			emptyRow = i;
+    			break;
+    			
+    		}
+    		
+    	}
+    	
+    	emptyRowPos = - (Constants.GAMEBOARD_HEIGHT * .5f) + ((emptyRow - 1) * Constants.CARDYSIZE);
+    		
+   		if (position.y - Constants.CARDYSIZE * .5f <= emptyRowPos) {
+    		
+   				position.y = emptyRowPos + Constants.CARDYSIZE * .5f;
+    			velocity.y = 0.0f;
+    			isCardStopped = true;
+    			grid.putCard(emptyRow, column, rank, suit);
+    			   		
+    	}
+   		
+   		// if up is pressed hard drop card into column
+   		
+   		if (moveUp && !isCardStopped) {
+   			
+   			position.y = emptyRowPos + Constants.CARDYSIZE * .5f;
+   			velocity.y = 0.0f;
+   			isCardStopped = true;
+   			grid.putCard(emptyRow, column, rank, suit);
+   			
+   		}
+		
 		// move right
 		
-		if (moveRight) {
+		if (moveRight && column < 5 && !isCardStopped) {
 			
 			position.x = position.x + Constants.CARDXSIZE;
+			column++;
 			
 		}
 		
-		if (moveLeft) {
+		if (moveLeft && column > 1 && !isCardStopped) {
 			
 			position.x = position.x - Constants.CARDXSIZE;
+			column--;
 			
 		}
     	

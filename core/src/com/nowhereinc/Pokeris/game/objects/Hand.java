@@ -1,8 +1,7 @@
-package com.nowhereinc.Pokeris.util;
+package com.nowhereinc.Pokeris.game.objects;
 
 import java.util.*; 
 
-import com.nowhereinc.Pokeris.game.objects.Card;
 
 public class Hand {
 	
