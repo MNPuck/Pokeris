@@ -9,8 +9,8 @@ public class Hand {
 	private int counter = 0;
 	
 	public Hand() {
-		cards = new Card[13];
-		for (int i = 0; i < 13; i++) {
+		cards = new Card[5];
+		for (int i = 0; i < 5; i++) {
 			cards[i] = new Card(1,1);
 		}
 		counter = 0;

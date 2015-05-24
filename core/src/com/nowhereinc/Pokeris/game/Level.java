@@ -102,7 +102,57 @@ public class Level {
 		
 		// update active cards
 		activeCard.update(deltaTime, grid);
-	
+		
+		// loop thru grid rows, if there are 5 cards check for valid poker hand
+		
+		for (int row = 1; row < 6; row++) {
+			
+			int columnCounter = 0;
+			
+			Hand rowHand;
+			
+			rowHand = new Hand();
+			
+			for (int column = 1; column < 6; column++) {
+				
+				if (grid.getIsFull(row, column)) {
+					
+					Card rowCard;
+					rowCard = grid.getCard(row, column);
+					
+					int rowRank = rowCard.getRank();
+					int rowSuit = rowCard.getSuit();
+			
+					rowHand.putCard(rowRank, rowSuit);
+					
+					columnCounter++;
+					
+				}
+				
+				else {
+					
+					break;
+					
+				}	
+				
+			}
+			
+			if (columnCounter == 5) {
+				
+				rowHand.sortCards();
+				int rowPokerHand = rowHand.return5CardPokerHand();
+				
+				if (rowPokerHand > 1) {
+					
+					Gdx.app.debug(TAG, "Row is " + row);
+					Gdx.app.debug(TAG, "Poker Hand is " + rowPokerHand);
+					
+				}
+				
+			}	
+			
+		}
+		
 	}	
 	
 	private void addCard() {

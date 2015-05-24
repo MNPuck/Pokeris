@@ -526,7 +526,7 @@ public class Card extends AbstractGameObject {
 		position.y += velocity.y * deltaTime;
 		
     	// get row data for current column
-    	for (int i = 1; i < 13; i++) {
+    	for (int i = 1; i < 6; i++) {
     		
     		if (!grid.getIsFull(i, column)) {
     			

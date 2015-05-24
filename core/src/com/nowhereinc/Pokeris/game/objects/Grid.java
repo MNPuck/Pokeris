@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class Grid {
 
-    public static int numRows = 12;
+    public static int numRows = 5;
     public static int numColumns = 5;
     public static int numCoordinates = numRows * numColumns;
 
@@ -47,6 +47,11 @@ public class Grid {
     public void deleteCard(int row, int column) {
     	
     	isFull[row-1][column-1] = false;
+    	
+    }
+    
+    public void deleteRow (int row) {
+    	
     	
     }
     
