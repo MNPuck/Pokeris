@@ -110,7 +110,7 @@ public class Assets implements Disposable, AssetErrorListener {
 			// set font sizes
 			defaultSmall.setScale(0.75f);
 			defaultNormal.setScale(1.0f);
-			defaultBig.setScale(2.0f);
+			defaultBig.setScale(3.0f);
 			// enable linear texture filtering for smooth fonts
 			defaultSmall.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 			defaultNormal.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);

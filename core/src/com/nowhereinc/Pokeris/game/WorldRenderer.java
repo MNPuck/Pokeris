@@ -110,40 +110,40 @@ public class WorldRenderer implements Disposable {
 	private void renderGuiDownArrow (SpriteBatch batch) {
 		
 		float x = cameraGUI.viewportWidth * .5f - 63;
-		float y = cameraGUI.viewportHeight - 75;
+		float y = cameraGUI.viewportHeight - 65;
 		
 		batch.draw(Assets.instance.downArrow.downArrow,
-				x, y, 50, 50, 125, 125, 1f, -1f, 0);
+				x, y, 50, 50, 150, 150, 1f, -1f, 0);
 		
 	}
 	
 	private void renderGuiLeftArrow (SpriteBatch batch) {
 		
-		float x = cameraGUI.viewportWidth * .5f - 107;
-		float y = cameraGUI.viewportHeight - 107;
+		float x = cameraGUI.viewportWidth * .5f - 167;
+		float y = cameraGUI.viewportHeight - 122;
 		
 		batch.draw(Assets.instance.leftArrow.leftArrow,
-				x, y, 50, 50, 125, 125, 1f, -1f, 0);
+				x, y, 50, 50, 150, 150, 1f, -1f, 0);
 		
 	}
 	
 	private void renderGuiRightArrow (SpriteBatch batch) {
 		
-		float x = cameraGUI.viewportWidth * .5f - 10;
-		float y = cameraGUI.viewportHeight - 100;
+		float x = cameraGUI.viewportWidth * .5f + 45;
+		float y = cameraGUI.viewportHeight - 112;
 		
 		batch.draw(Assets.instance.rightArrow.rightArrow,
-				x, y, 50, 50, 125, 125, 1f, -1f, 0);
+				x, y, 50, 50, 150, 150, 1f, -1f, 0);
 		
 	}
 	
 	private void renderGuiUpArrow (SpriteBatch batch) {
 		
-		float x = cameraGUI.viewportWidth * .5f - 55;
-		float y = cameraGUI.viewportHeight - 125;
+		float x = cameraGUI.viewportWidth * .5f - 52;
+		float y = cameraGUI.viewportHeight - 185;
 		
 		batch.draw(Assets.instance.upArrow.upArrow,
-				x, y, 50, 50, 125, 125, 1f, -1f, 0);
+				x, y, 50, 50, 150, 150, 1f, -1f, 0);
 		
 	}
 	
@@ -168,7 +168,7 @@ public class WorldRenderer implements Disposable {
 	}
 	
 	private void renderGuiCardsRemaining (SpriteBatch batch) {
-		float x = cameraGUI.viewportWidth - 305;
+		float x = cameraGUI.viewportWidth - 455;
 		float y = 15;
 		
 		BitmapFont fpsFont = Assets.instance.fonts.defaultBig;
@@ -180,7 +180,7 @@ public class WorldRenderer implements Disposable {
 	}
 	
 	private void renderGuiFpsCounter (SpriteBatch batch) {
-		float x = cameraGUI.viewportWidth - 155;
+		float x = cameraGUI.viewportWidth - 205;
 		float y = cameraGUI.viewportHeight - 55;
 		
 		int fps = Gdx.graphics.getFramesPerSecond();

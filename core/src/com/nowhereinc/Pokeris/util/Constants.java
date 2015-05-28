@@ -42,6 +42,9 @@ public class Constants {
 	public static final float CARDXSIZE = 1f;
 	public static final float CARDYSIZE = 1.25f;
 	
+	// Android Key Move Delay
+	public static final float ANDROIDMOVEDELAYTIME = 3f;
+	
 	// Game preferences file
 	public static final String PREFERENCES = "pokeris.prefs";
 		

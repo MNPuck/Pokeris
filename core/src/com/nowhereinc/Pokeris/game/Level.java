@@ -107,7 +107,7 @@ public class Level {
 		updateRows();
 		
 		// grid column update
-		updateColumns();
+		// updateColumns();
 
 	}	
 	
@@ -116,7 +116,7 @@ public class Level {
 		// loop thru grid rows, if there are 5 cards check for valid poker hand delete row and move
 		// rows down
 		
-		for (int row = 1; row < 6; row++) {
+		for (int row = 1; row < 13; row++) {
 			
 			int columnCounter = 0;
 			
@@ -161,7 +161,7 @@ public class Level {
 					
 					// change card position in card for rows which fell down after deletion
 					
-					for (int i = row; i < 6; i++) {
+					for (int i = row; i < 13; i++) {
 						
 						for (int j = 1; j < 6; j++) {
 							
@@ -339,7 +339,7 @@ public class Level {
 	
 	private void renderGrid(SpriteBatch batch) {
 		
-		for (int row = 1; row < 6; row++) {
+		for (int row = 1; row < 13; row++) {
 			
 			for (int column = 1; column < 6; column++) {
 				

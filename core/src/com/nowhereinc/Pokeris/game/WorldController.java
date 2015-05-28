@@ -34,7 +34,7 @@ public class WorldController extends InputAdapter {
 	private boolean moveUp;
 	private boolean moveDown;
 	
-	private boolean justTouched;
+	private float androidMoveDelay;
 	
 	private Rectangle arrowBox;
 	
@@ -70,7 +70,7 @@ public class WorldController extends InputAdapter {
 		
 		arrowBox = new Rectangle();
 		
-		justTouched = false;
+		androidMoveDelay = Constants.ANDROIDMOVEDELAYTIME;
 		
 		initLevel();
 		
@@ -188,13 +188,10 @@ public class WorldController extends InputAdapter {
 	}
 	
 	private void readScreenInput() {
-	
-		// see if touch is in up arrow box
 		
-		if (Gdx.input.isTouched() &&
-			!justTouched) {
+		if (Gdx.input.justTouched()) {
 			
-			justTouched = true;
+			// see if touch is in up arrow box
 			
 			Vector2 tsAxis = new Vector2(0,0);
 			
@@ -203,61 +200,43 @@ public class WorldController extends InputAdapter {
 			
 			// check to see if touch is in down rectangle
 			float x = Constants.VIEWPORT_GUI_WIDTH * .5f - 63;
-			float y = Constants.VIEWPORT_GUI_HEIGHT - 75;
+			float y = Constants.VIEWPORT_GUI_HEIGHT - 65;
 			
-			arrowBox.set(x, y, 125, 125);
+			arrowBox.set(x, y, 150, 150);
 			
-			if (arrowBox.contains(tsAxis)) {
-				
+			if (arrowBox.contains(tsAxis))
 				moveDown = true;
-				
-			}
 			
 			// check to see if touch is in left rectangle
-			x = Constants.VIEWPORT_GUI_WIDTH * .5f - 107;
-			y = Constants.VIEWPORT_GUI_HEIGHT - 107;
+			x = Constants.VIEWPORT_GUI_WIDTH * .5f - 167;
+			y = Constants.VIEWPORT_GUI_HEIGHT - 122;
 			
-			arrowBox.set(x, y, 125, 125);
+			arrowBox.set(x, y, 150, 150);
 			
-			if (arrowBox.contains(tsAxis)) {
-				
+			if (arrowBox.contains(tsAxis))
 				moveLeft = true;
-				
-			}
 			
 			// check to see if touch is in right rectangle
-			x = Constants.VIEWPORT_GUI_WIDTH * .5f - 10;
-			y = Constants.VIEWPORT_GUI_HEIGHT - 100;
+			x = Constants.VIEWPORT_GUI_WIDTH * .5f + 45;
+			y = Constants.VIEWPORT_GUI_HEIGHT - 112;
 			
-			arrowBox.set(x, y, 125, 125);
+			arrowBox.set(x, y, 150, 150);
 			
-			if (arrowBox.contains(tsAxis)) {
-				
+			if (arrowBox.contains(tsAxis))
 				moveRight = true;
-				
-			}
 			
 			// check to see if touch is in up rectangle
-			x = Constants.VIEWPORT_GUI_WIDTH * .5f - 55;
-			y = Constants.VIEWPORT_GUI_HEIGHT - 125;
+			x = Constants.VIEWPORT_GUI_WIDTH * .5f - 52;
+			y = Constants.VIEWPORT_GUI_HEIGHT - 185;
 			
-			arrowBox.set(x, y, 125, 125);
+			arrowBox.set(x, y, 150, 150);
 			
-			if (arrowBox.contains(tsAxis)) {
-				
+			if (arrowBox.contains(tsAxis))
 				moveUp = true;
-				
-			}
 			
-			level.activeCard.getInput(moveRight, moveLeft, moveUp, moveDown);
-				
 		}
 		
-		else {
-			
-			justTouched = false;
-			
-		}
+		level.activeCard.getInput(moveRight, moveLeft, moveUp, moveDown);
 				
 	}
 	
@@ -270,12 +249,17 @@ public class WorldController extends InputAdapter {
 	
 	@Override
 	public boolean keyDown (int keycode) {
+		
 		// Reset game world
 		if (keycode == Keys.BACK) {
+			
 			selectPressed = true;
+			return true;
+			
 		}
-
+		
 		return false;
+		
 	}
 
 	@Override
