@@ -33,10 +33,10 @@ public class WorldController extends InputAdapter {
 	private boolean moveRight;
 	private boolean moveUp;
 	private boolean moveDown;
-	
-	private float androidMoveDelay;
+	private boolean holdPressed;
 	
 	private Rectangle arrowBox;
+	private Rectangle holdBox;
 	
 	Vector2 cameraPosition;
 
@@ -69,8 +69,7 @@ public class WorldController extends InputAdapter {
 		escPressed = false;
 		
 		arrowBox = new Rectangle();
-		
-		androidMoveDelay = Constants.ANDROIDMOVEDELAYTIME;
+		holdBox = new Rectangle();
 		
 		initLevel();
 		
@@ -107,6 +106,8 @@ public class WorldController extends InputAdapter {
 		moveUp = false;
 		moveDown = false;
 		
+		holdPressed = false;
+		
 		if (!gameOver) {
 		
 			switch (Gdx.app.getType()) {
@@ -124,7 +125,7 @@ public class WorldController extends InputAdapter {
 	
 			}
 			
-			level.update(deltaTime);
+			level.update(deltaTime, holdPressed);
 		
 		}
 		
@@ -185,6 +186,13 @@ public class WorldController extends InputAdapter {
 		
 		level.activeCard.getInput(moveRight, moveLeft, moveUp, moveDown);
 		
+		if (Gdx.input.isKeyJustPressed(Keys.SHIFT_LEFT) ||
+			Gdx.input.isKeyJustPressed(Keys.SHIFT_RIGHT)) {
+					
+			holdPressed = true;
+					
+		}
+		
 	}
 	
 	private void readScreenInput() {
@@ -234,6 +242,15 @@ public class WorldController extends InputAdapter {
 			if (arrowBox.contains(tsAxis))
 				moveUp = true;
 			
+			x = Constants.VIEWPORT_GUI_WIDTH * .5f - 575;
+			y = Constants.VIEWPORT_GUI_HEIGHT * .5f + 610;
+			
+			holdBox.set(x, y, 125, 150);
+			
+			if (holdBox.contains(tsAxis))
+				holdPressed = true;
+
+							
 		}
 		
 		level.activeCard.getInput(moveRight, moveLeft, moveUp, moveDown);

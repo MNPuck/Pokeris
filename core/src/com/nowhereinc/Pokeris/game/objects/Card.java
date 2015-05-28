@@ -44,6 +44,7 @@ public class Card extends AbstractGameObject {
     private boolean moveRight;
     private boolean moveUp;
     private boolean moveDown;
+    private boolean holdPressed;
     
     // column
     private int column;
@@ -407,6 +408,18 @@ public class Card extends AbstractGameObject {
     	
     }
     
+    public float getPositionX() {
+    	
+    	return position.x;
+    	
+    }
+    
+    public float getPositionY() {
+    	
+    	return position.y;
+    	
+    }
+    
     public void setPosition(float posX, float posY) {
     	
     	position.x = posX;
@@ -591,6 +604,12 @@ public class Card extends AbstractGameObject {
     public boolean returnCardStopped() {
     	
     	return isCardStopped;
+    	
+    }
+    
+    public TextureRegion returnCardTextureRegion() {
+    	
+    	return Card;
     	
     }
     

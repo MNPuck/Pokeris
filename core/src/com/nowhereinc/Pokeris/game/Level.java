@@ -27,6 +27,12 @@ public class Level {
 	// current active card
 	public Card activeCard;
 	
+	// current hold card
+	public Card holdCard;
+	
+	// current preview card
+	public Card previewCard;
+	
 	// Deck
 	public Deck deck;
 	
@@ -77,7 +83,30 @@ public class Level {
 		
 	}
 	
-	public void update (float deltaTime) {
+	public void update (float deltaTime, boolean holdPressed) {
+		
+		if (holdPressed &&
+				holdCard.getRank() != 0 &&
+				holdCard.getSuit() != 0) {
+			
+				Card tempCard = new Card(activeCard.getRank(), activeCard.getSuit());	
+				tempCard.setPosition(activeCard.getPositionX(), activeCard.getPositionY());
+				
+				activeCard = holdCard;
+				holdCard = tempCard;
+				
+				holdCard.setPosition(tempCard.getPositionX(), tempCard.getPositionY());
+			
+		}
+		
+		if (holdPressed &&
+			holdCard.getRank() == 0 &&
+			holdCard.getSuit() == 0) {
+			
+			holdCard = activeCard;
+			addCard();
+			
+		}
 		
 		// if active card is stopped add a new card
 		
@@ -256,6 +285,8 @@ public class Level {
 		card.setPosition(dropStartPos.x, dropStartPos.y);
 		activeCard = card;
 		
+		previewCard = deck.getPreviewCard();
+		
 	}
 	
 	private void newLevel() {
@@ -295,6 +326,9 @@ public class Level {
 		// cards
 		cards = null;
 		cards = new Array<Card>();
+		
+		// init hold card to 0,0
+		holdCard = new Card(0,0);
 	
 		cardsRemaining = 52;
 		addCard();

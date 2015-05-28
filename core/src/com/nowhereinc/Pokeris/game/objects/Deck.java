@@ -62,5 +62,16 @@ public class Deck {
     	return cards[suitMod][rankMod];
     	 
     }
+    
+    public Card getPreviewCard() {
+    	
+    	int suitMod, rankMod;
+    	
+    	suitMod = nextCard / 13;
+    	rankMod = nextCard % 13;
+    	
+    	return cards[suitMod][rankMod];
+    	 
+    }
    
 }

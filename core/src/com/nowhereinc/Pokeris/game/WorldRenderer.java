@@ -102,6 +102,12 @@ public class WorldRenderer implements Disposable {
 		
 		// draw up arrow
 		renderGuiUpArrow(batch);
+		
+		// draw hold card
+		renderGuiHoldCard(batch);
+		
+		// draw preview card
+		renderGuiPreviewCard(batch);
 
 		batch.end();
 		
@@ -157,6 +163,34 @@ public class WorldRenderer implements Disposable {
 		fpsFont.draw(batch, "Score " + worldController.level.returnScore() , x, y);
 		fpsFont.setColor(1, 1, 1, 1); // white
 	
+	}
+	
+	private void renderGuiHoldCard (SpriteBatch batch) {
+		float x = cameraGUI.viewportWidth * .5f - 575;
+		float y = cameraGUI.viewportHeight * .5f + 610;
+		
+		if (worldController.level.holdCard.getRank() != 0 &&
+			worldController.level.holdCard.getSuit() != 0) {
+		
+			batch.draw(worldController.level.holdCard.returnCardTextureRegion(),
+					   x, y, 50, 50, 125, 150, 1f, -1f, 0);
+		
+		}
+
+	}
+	
+	private void renderGuiPreviewCard (SpriteBatch batch) {
+		float x = cameraGUI.viewportWidth * .5f + 575;
+		float y = cameraGUI.viewportHeight * .5f + 610;
+		
+		if (worldController.level.previewCard.getRank() != 0 &&
+			worldController.level.previewCard.getSuit() != 0) {
+		
+			batch.draw(worldController.level.previewCard.returnCardTextureRegion(),
+					   x, y, 50, 50, 125, 150, 1f, -1f, 0);
+		
+		}
+
 	}
 	
 	private void renderGuiHighScore (SpriteBatch batch) {
