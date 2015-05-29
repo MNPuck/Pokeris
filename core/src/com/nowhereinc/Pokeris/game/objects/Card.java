@@ -420,6 +420,12 @@ public class Card extends AbstractGameObject {
     	
     }
     
+    public void resetVelocity() {
+    	
+    	velocity.y = 0;
+    	
+    }
+    
     public void setPosition(float posX, float posY) {
     	
     	position.x = posX;

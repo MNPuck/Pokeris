@@ -242,10 +242,10 @@ public class WorldController extends InputAdapter {
 			if (arrowBox.contains(tsAxis))
 				moveUp = true;
 			
-			x = Constants.VIEWPORT_GUI_WIDTH * .5f - 575;
+			x = Constants.VIEWPORT_GUI_WIDTH * .5f - 525;
 			y = Constants.VIEWPORT_GUI_HEIGHT * .5f + 610;
 			
-			holdBox.set(x, y, 125, 150);
+			holdBox.set(x, y, 150, 150);
 			
 			if (holdBox.contains(tsAxis))
 				holdPressed = true;

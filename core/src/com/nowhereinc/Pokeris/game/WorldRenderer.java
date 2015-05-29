@@ -103,11 +103,23 @@ public class WorldRenderer implements Disposable {
 		// draw up arrow
 		renderGuiUpArrow(batch);
 		
+		// draw hold card text
+		renderGuiHoldCardText(batch);
+		
 		// draw hold card
 		renderGuiHoldCard(batch);
 		
+		// draw hold card box
+		renderGuiHoldCardBox(batch);
+		
+		// draw preview card text
+		renderGuiPreviewCardText(batch);
+		
 		// draw preview card
 		renderGuiPreviewCard(batch);
+		
+		// draw preview card box
+		//renderGuiPreviewCardBox(batch);
 
 		batch.end();
 		
@@ -165,8 +177,20 @@ public class WorldRenderer implements Disposable {
 	
 	}
 	
+	private void renderGuiHoldCardText (SpriteBatch batch) {
+		float x = cameraGUI.viewportWidth * .5f - 525;
+		float y = cameraGUI.viewportHeight * .5f + 510;
+		
+		BitmapFont fpsFont = Assets.instance.fonts.defaultNormal;
+		
+		fpsFont.setColor(0, 1, 0, 1); // green
+		fpsFont.draw(batch, "Hold Card" , x, y);
+		fpsFont.setColor(1, 1, 1, 1); // white
+	
+	}
+	
 	private void renderGuiHoldCard (SpriteBatch batch) {
-		float x = cameraGUI.viewportWidth * .5f - 575;
+		float x = cameraGUI.viewportWidth * .5f - 525;
 		float y = cameraGUI.viewportHeight * .5f + 610;
 		
 		if (worldController.level.holdCard.getRank() != 0 &&
@@ -179,8 +203,35 @@ public class WorldRenderer implements Disposable {
 
 	}
 	
+	private void renderGuiHoldCardBox (SpriteBatch batch) {
+		
+		float x = cameraGUI.viewportWidth * .5f - 525;
+		float y = cameraGUI.viewportHeight * .5f + 610;
+		
+		if (worldController.level.holdCard.getRank() == 0 &&
+			worldController.level.holdCard.getSuit() == 0) {
+		
+			batch.draw(Assets.instance.border.border,
+					   x, y, 50, 50, 150, 150, 1f, -1f, 0);
+		
+		}
+		
+	}
+	
+	private void renderGuiPreviewCardText (SpriteBatch batch) {
+		float x = cameraGUI.viewportWidth * .5f + 375;
+		float y = cameraGUI.viewportHeight * .5f + 510;
+		
+		BitmapFont fpsFont = Assets.instance.fonts.defaultNormal;
+		
+		fpsFont.setColor(0, 1, 0, 1); // green
+		fpsFont.draw(batch, "Next Card" , x, y);
+		fpsFont.setColor(1, 1, 1, 1); // white
+	
+	}
+	
 	private void renderGuiPreviewCard (SpriteBatch batch) {
-		float x = cameraGUI.viewportWidth * .5f + 575;
+		float x = cameraGUI.viewportWidth * .5f + 375;
 		float y = cameraGUI.viewportHeight * .5f + 610;
 		
 		if (worldController.level.previewCard.getRank() != 0 &&
@@ -188,6 +239,20 @@ public class WorldRenderer implements Disposable {
 		
 			batch.draw(worldController.level.previewCard.returnCardTextureRegion(),
 					   x, y, 50, 50, 125, 150, 1f, -1f, 0);
+		
+		}
+
+	}
+	
+	private void renderGuiPreviewCardBox (SpriteBatch batch) {
+		float x = cameraGUI.viewportWidth * .5f + 375;
+		float y = cameraGUI.viewportHeight * .5f + 610;
+		
+		if (worldController.level.previewCard.getRank() == 0 &&
+			worldController.level.previewCard.getSuit() == 0) {
+		
+			batch.draw((Assets.instance.border.border),
+					   x, y, 50, 50, 150, 150, 1f, -1f, 0);
 		
 		}
 

@@ -2,8 +2,13 @@
 
 import java.util.*;
 
+import com.badlogic.gdx.Gdx;
+import com.nowhereinc.Pokeris.game.WorldRenderer;
+
 public class Deck {
 
+	private static final String TAG = WorldRenderer.class.getName();
+	
     public static int numSuits = 4;
     public static int numRanks = 13;
     public static int numCards = numSuits * numRanks;
@@ -71,7 +76,8 @@ public class Deck {
     	rankMod = nextCard % 13;
     	
     	return cards[suitMod][rankMod];
-    	 
+    	
+    	
     }
    
 }

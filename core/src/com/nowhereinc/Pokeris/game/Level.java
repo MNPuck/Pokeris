@@ -57,6 +57,9 @@ public class Level {
 	// cards remaining
 	private int cardsRemaining;
 	
+	// can swap cards boolean
+	private boolean canSwapCards;
+	
 	public Level () {
 
 		init();
@@ -81,21 +84,30 @@ public class Level {
 		
 		newLevel();
 		
+		canSwapCards = false;
+		
 	}
 	
 	public void update (float deltaTime, boolean holdPressed) {
 		
 		if (holdPressed &&
-				holdCard.getRank() != 0 &&
-				holdCard.getSuit() != 0) {
+			holdCard.getRank() != 0 &&
+			holdCard.getSuit() != 0 &&
+			canSwapCards) {
 			
-				Card tempCard = new Card(activeCard.getRank(), activeCard.getSuit());	
-				tempCard.setPosition(activeCard.getPositionX(), activeCard.getPositionY());
+			canSwapCards = false;
+			
+			Card tempCard = new Card(activeCard.getRank(), activeCard.getSuit());	
+			tempCard.setPosition(activeCard.getPositionX(), activeCard.getPositionY());
 				
-				activeCard = holdCard;
-				holdCard = tempCard;
+			activeCard = holdCard;
+			holdCard = tempCard;
 				
-				holdCard.setPosition(tempCard.getPositionX(), tempCard.getPositionY());
+			Vector2 dropStartPos;
+			dropStartPos = new Vector2 (0, Constants.GAMEBOARD_HEIGHT * .5f - Constants.CARDYSIZE * .5f);
+			
+			activeCard.resetVelocity();
+			activeCard.setPosition(dropStartPos.x, dropStartPos.y);
 			
 		}
 		
@@ -111,8 +123,6 @@ public class Level {
 		// if active card is stopped add a new card
 		
 		if (activeCard.returnCardStopped()) {
-			
-			cardsRemaining--;
 			
 			if (cardsRemaining > 0) {
 			
@@ -285,7 +295,21 @@ public class Level {
 		card.setPosition(dropStartPos.x, dropStartPos.y);
 		activeCard = card;
 		
-		previewCard = deck.getPreviewCard();
+		cardsRemaining--;
+		
+		if (cardsRemaining > 0) {
+		
+			previewCard = deck.getPreviewCard();
+			
+		}
+		
+		else {
+			
+			previewCard = new Card(0,0);
+			
+		}
+		
+		canSwapCards = true;
 		
 	}
 	
