@@ -382,8 +382,8 @@ public class Card extends AbstractGameObject {
     	
 		// init physics values
 		
-		terminalVelocity.x = 2;
-		terminalVelocity.y = 2;
+		terminalVelocity.x = 1;
+		terminalVelocity.y = 1;
 		friction.x = 0;
 		friction.y = 0;
 		accleration.x = 5;
@@ -519,7 +519,7 @@ public class Card extends AbstractGameObject {
     		column = 3;
     		row = 12;
     		
-    		terminalVelocity.y += levelNumber;
+    		terminalVelocity.y += levelNumber * .5f;
     		
     	}
    		
@@ -604,6 +604,12 @@ public class Card extends AbstractGameObject {
    			grid.putCard(emptyRow, column, rank, suit);
    			
    		}
+    	
+    }
+    
+    public void updateTerminalVelocity(float terminalVelocityYIn) {
+    	
+    	terminalVelocity.y += terminalVelocityYIn;
     	
     }
     

@@ -90,72 +90,91 @@ public class Level {
 	
 	public void update (float deltaTime, boolean holdPressed) {
 		
-		if (holdPressed &&
-			holdCard.getRank() != 0 &&
-			holdCard.getSuit() != 0 &&
-			canSwapCards) {
+		// check grid row 13 columns, if piece there set game over to true
+	 	
+		for (int columns = 1; columns < 6; columns++) {
 			
-			canSwapCards = false;
-			
-			Card tempCard = new Card(activeCard.getRank(), activeCard.getSuit());	
-			tempCard.setPosition(activeCard.getPositionX(), activeCard.getPositionY());
+			if (grid.getIsFull(10, columns)) {
 				
-			activeCard = holdCard;
-			holdCard = tempCard;
+				Gdx.app.debug(TAG, "Setting gameover");
 				
-			Vector2 dropStartPos;
-			dropStartPos = new Vector2 (0, Constants.GAMEBOARD_HEIGHT * .5f - Constants.CARDYSIZE * .5f);
-			
-			activeCard.resetVelocity();
-			activeCard.setPosition(dropStartPos.x, dropStartPos.y);
+				isGameOver = true;
+				break;
+				
+			}
 			
 		}
 		
-		if (holdPressed &&
-			holdCard.getRank() == 0 &&
-			holdCard.getSuit() == 0) {
-			
-			holdCard = activeCard;
-			addCard();
-			
-		}
+		if (!isGameOver) {
 		
-		// if active card is stopped add a new card
+			if (holdPressed &&
+				holdCard.getRank() != 0 &&
+				holdCard.getSuit() != 0 &&
+				canSwapCards) {
+			
+				canSwapCards = false;
+			
+				Card tempCard = new Card(activeCard.getRank(), activeCard.getSuit());	
+				tempCard.setPosition(activeCard.getPositionX(), activeCard.getPositionY());
+				
+				activeCard = holdCard;
+				holdCard = tempCard;
+				
+				Vector2 dropStartPos;
+				dropStartPos = new Vector2 (0, Constants.GAMEBOARD_HEIGHT * .5f);
+			
+				activeCard.resetVelocity();
+				activeCard.setPosition(dropStartPos.x, dropStartPos.y);
+			
+			}
 		
-		if (activeCard.returnCardStopped()) {
+			if (holdPressed &&
+				holdCard.getRank() == 0 &&
+				holdCard.getSuit() == 0) {
 			
-			if (cardsRemaining > 0) {
-			
-				cards.add(activeCard);
+				holdCard = activeCard;
 				addCard();
+			
+			}
+		
+			// if active card is stopped add a new card
+		
+			if (activeCard.returnCardStopped()) {
+			
+				if (cardsRemaining > 0) {
+			
+					cards.add(activeCard);
+					addCard();
 	
-			}
+				}
 			
-			else {
+				else {
 				
-				newLevel();
+					newLevel();
 				
-			}
+				}
 			
-		}
+			}
 		
-		// update active cards
-		activeCard.update(deltaTime, grid, levelNumber);
+			// update active cards
+			activeCard.update(deltaTime, grid, levelNumber);
 		
-		// grid row update
-		updateRows();
+			// grid row update
+			updateRows();
 		
-		// grid column update
-		// updateColumns();
+			// grid column update
+			// updateColumns();
 
-	}	
+		}	
+		
+	}
 	
 	private void updateRows() {
 		
 		// loop thru grid rows, if there are 5 cards check for valid poker hand delete row and move
 		// rows down
 		
-		for (int row = 1; row < 13; row++) {
+		for (int row = 1; row < 10; row++) {
 			
 			int columnCounter = 0;
 			
@@ -200,7 +219,7 @@ public class Level {
 					
 					// change card position in card for rows which fell down after deletion
 					
-					for (int i = row; i < 13; i++) {
+					for (int i = row; i < 10; i++) {
 						
 						for (int j = 1; j < 6; j++) {
 							
@@ -290,7 +309,7 @@ public class Level {
 		Card card = deck.getNextCard();
 		
 		Vector2 dropStartPos;
-		dropStartPos = new Vector2 (0, Constants.GAMEBOARD_HEIGHT * .5f - Constants.CARDYSIZE * .5f);
+		dropStartPos = new Vector2 (0, Constants.GAMEBOARD_HEIGHT * .5f);
 		
 		card.setPosition(dropStartPos.x, dropStartPos.y);
 		activeCard = card;
@@ -327,7 +346,7 @@ public class Level {
 		}
 		
 		else {
-		
+	
 			loadLevel();
 		
 		}
@@ -397,7 +416,7 @@ public class Level {
 	
 	private void renderGrid(SpriteBatch batch) {
 		
-		for (int row = 1; row < 13; row++) {
+		for (int row = 1; row < 11; row++) {
 			
 			for (int column = 1; column < 6; column++) {
 				

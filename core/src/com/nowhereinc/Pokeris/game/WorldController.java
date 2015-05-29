@@ -199,25 +199,14 @@ public class WorldController extends InputAdapter {
 		
 		if (Gdx.input.justTouched()) {
 			
-			// see if touch is in up arrow box
-			
 			Vector2 tsAxis = new Vector2(0,0);
 			
 			tsAxis.x = Gdx.input.getX();
 			tsAxis.y = Gdx.input.getY();
 			
-			// check to see if touch is in down rectangle
-			float x = Constants.VIEWPORT_GUI_WIDTH * .5f - 63;
-			float y = Constants.VIEWPORT_GUI_HEIGHT - 65;
-			
-			arrowBox.set(x, y, 150, 150);
-			
-			if (arrowBox.contains(tsAxis))
-				moveDown = true;
-			
 			// check to see if touch is in left rectangle
-			x = Constants.VIEWPORT_GUI_WIDTH * .5f - 167;
-			y = Constants.VIEWPORT_GUI_HEIGHT - 122;
+			float x = Constants.VIEWPORT_GUI_WIDTH * .5f - 167;
+			float y = Constants.VIEWPORT_GUI_HEIGHT - 180;
 			
 			arrowBox.set(x, y, 150, 150);
 			
@@ -226,7 +215,7 @@ public class WorldController extends InputAdapter {
 			
 			// check to see if touch is in right rectangle
 			x = Constants.VIEWPORT_GUI_WIDTH * .5f + 45;
-			y = Constants.VIEWPORT_GUI_HEIGHT - 112;
+			y = Constants.VIEWPORT_GUI_HEIGHT - 175;
 			
 			arrowBox.set(x, y, 150, 150);
 			
@@ -235,7 +224,7 @@ public class WorldController extends InputAdapter {
 			
 			// check to see if touch is in up rectangle
 			x = Constants.VIEWPORT_GUI_WIDTH * .5f - 52;
-			y = Constants.VIEWPORT_GUI_HEIGHT - 185;
+			y = Constants.VIEWPORT_GUI_HEIGHT - 255;
 			
 			arrowBox.set(x, y, 150, 150);
 			
@@ -251,6 +240,24 @@ public class WorldController extends InputAdapter {
 				holdPressed = true;
 
 							
+		}
+		
+		if (Gdx.input.isTouched()) {
+			
+			Vector2 tsAxis = new Vector2(0,0);
+			
+			tsAxis.x = Gdx.input.getX();
+			tsAxis.y = Gdx.input.getY();
+			
+			// check to see if touch is in down rectangle
+			float x = Constants.VIEWPORT_GUI_WIDTH * .5f - 63;
+			float y = Constants.VIEWPORT_GUI_HEIGHT - 85;
+			
+			arrowBox.set(x, y, 150, 150);
+			
+			if (arrowBox.contains(tsAxis))
+				moveDown = true;
+			
 		}
 		
 		level.activeCard.getInput(moveRight, moveLeft, moveUp, moveDown);

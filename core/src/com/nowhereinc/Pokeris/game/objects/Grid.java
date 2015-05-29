@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class Grid {
 
-    public static int numRows = 13;
+    public static int numRows = 10;
     public static int numColumns = 5;
     public static int numCoordinates = numRows * numColumns;
 
@@ -60,7 +60,7 @@ public class Grid {
     	
     	// move rows down 
     	
-    	for (int moveRow = row + 1; moveRow < 13; moveRow++) {
+    	for (int moveRow = row + 1; moveRow < 11; moveRow++) {
     		
     		for (int moveColumn = 1; moveColumn < 6; moveColumn++) {
     			

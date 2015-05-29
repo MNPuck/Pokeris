@@ -128,7 +128,7 @@ public class WorldRenderer implements Disposable {
 	private void renderGuiDownArrow (SpriteBatch batch) {
 		
 		float x = cameraGUI.viewportWidth * .5f - 63;
-		float y = cameraGUI.viewportHeight - 65;
+		float y = cameraGUI.viewportHeight - 85;
 		
 		batch.draw(Assets.instance.downArrow.downArrow,
 				x, y, 50, 50, 150, 150, 1f, -1f, 0);
@@ -138,7 +138,7 @@ public class WorldRenderer implements Disposable {
 	private void renderGuiLeftArrow (SpriteBatch batch) {
 		
 		float x = cameraGUI.viewportWidth * .5f - 167;
-		float y = cameraGUI.viewportHeight - 122;
+		float y = cameraGUI.viewportHeight - 180;
 		
 		batch.draw(Assets.instance.leftArrow.leftArrow,
 				x, y, 50, 50, 150, 150, 1f, -1f, 0);
@@ -148,7 +148,7 @@ public class WorldRenderer implements Disposable {
 	private void renderGuiRightArrow (SpriteBatch batch) {
 		
 		float x = cameraGUI.viewportWidth * .5f + 45;
-		float y = cameraGUI.viewportHeight - 112;
+		float y = cameraGUI.viewportHeight - 175;
 		
 		batch.draw(Assets.instance.rightArrow.rightArrow,
 				x, y, 50, 50, 150, 150, 1f, -1f, 0);
@@ -158,7 +158,7 @@ public class WorldRenderer implements Disposable {
 	private void renderGuiUpArrow (SpriteBatch batch) {
 		
 		float x = cameraGUI.viewportWidth * .5f - 52;
-		float y = cameraGUI.viewportHeight - 185;
+		float y = cameraGUI.viewportHeight - 255;
 		
 		batch.draw(Assets.instance.upArrow.upArrow,
 				x, y, 50, 50, 150, 150, 1f, -1f, 0);
