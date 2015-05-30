@@ -59,6 +59,21 @@ public class Level {
 	
 	// can swap cards boolean
 	private boolean canSwapCards;
+	
+	// lines cleared
+	private int linesCleared;
+	
+	// level clear pause
+	private boolean levelClearPause;
+	
+	// last poker hand
+	private int lastPokerHand;
+	
+	// level time
+	private float levelTime;
+	
+	// level time multiplier
+	private int levelTimeMultiplier;
 
 	
 	public Level () {
@@ -86,18 +101,17 @@ public class Level {
 		newLevel();
 		
 		canSwapCards = false;
+		levelClearPause = false;
 		
 	}
 	
-	public void update (float deltaTime, boolean holdPressed) {
+	public void update (float deltaTime, boolean holdPressed, boolean keyPressed) {
 		
 		// check grid row 13 columns, if piece there set game over to true
 	 	
 		for (int columns = 1; columns < 6; columns++) {
 			
 			if (grid.getIsFull(10, columns)) {
-				
-				Gdx.app.debug(TAG, "Setting gameover");
 				
 				isGameOver = true;
 				break;
@@ -106,7 +120,10 @@ public class Level {
 			
 		}
 		
-		if (!isGameOver) {
+		if (!isGameOver &&
+			!levelClearPause) {
+			
+			levelTime += deltaTime;
 		
 			if (holdPressed &&
 				holdCard.getRank() != 0 &&
@@ -151,7 +168,7 @@ public class Level {
 			
 				else {
 				
-					newLevel();
+					addLevelScore();
 				
 				}
 			
@@ -167,6 +184,18 @@ public class Level {
 			// updateColumns();
 
 		}	
+		
+		if (levelClearPause) {
+			
+			if (keyPressed) {
+				
+				levelClearPause = false;
+				newLevel();
+
+				
+			}
+			
+		}
 		
 	}
 	
@@ -215,6 +244,8 @@ public class Level {
 				if (rowPokerHand > 1) {
 					
 					score += rowHand.returnScore(rowPokerHand);
+					linesCleared++;
+					lastPokerHand = rowPokerHand;
 					
 					grid.deleteRow(row);
 					
@@ -292,7 +323,7 @@ public class Level {
 				int columnPokerHand = columnHand.return5CardPokerHand();
 					
 				if (columnPokerHand > 1) {
-						
+					
 					score += columnHand.returnScore(columnPokerHand);
 						
 					grid.deleteColumn(column);
@@ -330,6 +361,26 @@ public class Level {
 		}
 		
 		canSwapCards = true;
+		
+	}
+	
+	private void addLevelScore() {
+		
+		if (levelTime < 100) {
+			
+			levelTimeMultiplier = (int) (100 - levelTime);
+			
+		}
+		
+		else {
+			
+			levelTimeMultiplier = 1;
+			
+		}
+		
+		levelClearPause = true;
+		
+		score += (linesCleared * levelNumber * 100) + (levelTimeMultiplier * 100); 
 		
 	}
 	
@@ -375,6 +426,12 @@ public class Level {
 		holdCard = new Card(0,0);
 	
 		cardsRemaining = 52;
+		linesCleared = 0;
+		
+		lastPokerHand = 0;
+		
+		levelTime = 0;
+		
 		addCard();
 			
 	}
@@ -385,9 +442,39 @@ public class Level {
 		
 	}
 	
+	public int returnLastPokerHand() {
+		
+		return lastPokerHand;
+		
+	}
+	
+	public boolean returnLevelClearPause() {
+		
+		return levelClearPause;
+		
+	}
+	
 	public int returnLevelNumber() {
 		
 		return levelNumber;
+		
+	}
+	
+	public float returnLevelTime() {
+		
+		return levelTime;
+		
+	}
+	
+	public int returnLevelTimeMultiplier() {
+		
+		return levelTimeMultiplier;
+		
+	}
+	
+	public int returnLinesCleared() {
+		
+		return linesCleared;
 		
 	}
 	
@@ -407,11 +494,15 @@ public class Level {
 		// draw border
 		border.render(batch);
 		
-		// draw active card
-		activeCard.render(batch);
+		if (!levelClearPause) {
 		
-		//draw cards from grid
-		renderGrid(batch);
+			// draw active card
+			activeCard.render(batch);
+		
+			//draw cards from grid
+			renderGrid(batch);
+		
+		}
 		
 	}
 	

@@ -34,6 +34,7 @@ public class WorldController extends InputAdapter {
 	private boolean moveUp;
 	private boolean moveDown;
 	private boolean holdPressed;
+	private boolean keyPressed;
 	
 	private Rectangle arrowBox;
 	private Rectangle holdBox;
@@ -107,6 +108,7 @@ public class WorldController extends InputAdapter {
 		moveDown = false;
 		
 		holdPressed = false;
+		keyPressed = false;
 		
 		if (!gameOver) {
 		
@@ -125,7 +127,7 @@ public class WorldController extends InputAdapter {
 	
 			}
 			
-			level.update(deltaTime, holdPressed);
+			level.update(deltaTime, holdPressed, keyPressed);
 		
 		}
 		
@@ -193,6 +195,12 @@ public class WorldController extends InputAdapter {
 					
 		}
 		
+		if (Gdx.input.isKeyJustPressed(Keys.ANY_KEY)) {
+			
+			keyPressed = true;
+			
+		}
+		
 	}
 	
 	private void readScreenInput() {
@@ -238,8 +246,9 @@ public class WorldController extends InputAdapter {
 			
 			if (holdBox.contains(tsAxis))
 				holdPressed = true;
-
-							
+			
+			keyPressed = true;
+		
 		}
 		
 		if (Gdx.input.isTouched()) {

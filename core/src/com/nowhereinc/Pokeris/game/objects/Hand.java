@@ -2,8 +2,13 @@ package com.nowhereinc.Pokeris.game.objects;
 
 import java.util.*; 
 
+import com.badlogic.gdx.Gdx;
+import com.nowhereinc.Pokeris.game.Level;
+
 
 public class Hand {
+	
+	public static final String TAG = Level.class.getName();
 	
 	private Card[] cards;
 	private int counter = 0;
@@ -86,7 +91,26 @@ public class Hand {
 	
 	public int return5CardPokerHand () {
 		
-		// check for str8 flush and royal flush		
+		// check for royal flush
+		
+		if (cards[0].getRank() == 1) {
+			
+			if (cards[0].getSuit() == cards[1].getSuit() &
+				cards[1].getSuit() == cards[2].getSuit() &
+				cards[2].getSuit() == cards[3].getSuit() &
+				cards[3].getSuit() == cards[4].getSuit() &
+				cards[0].getRank() == cards[1].getRank() - 12 &
+				cards[1].getRank() == cards[2].getRank() + 1 &
+				cards[2].getRank() == cards[3].getRank() + 1 &
+				cards[3].getRank() == cards[4].getRank() + 1) {
+				
+				return 10;
+				
+			}
+				
+		}
+		
+		// check for str8 flush
 		// needs to add code to figure the str8 flush wheel	
 		
 		if (cards[0].getSuit() == cards[1].getSuit() &
@@ -98,11 +122,6 @@ public class Hand {
 			cards[2].getRank() == cards[3].getRank() + 1 &
 			cards[3].getRank() == cards[4].getRank() + 1) {
 				
-				// if the first card is ace it's a royal flush
-			
-				if (cards[0].getRank() == 1) {
-					return 10;
-				}
 				
 				return 9;
 		}
@@ -178,6 +197,19 @@ public class Hand {
 				swapCards(2,3);							
 				return 5;
 			}
+		
+		if (cards[0].getRank() == 1) {
+			
+			if (cards[0].getRank() == cards[1].getRank() - 12 &
+				cards[1].getRank() == cards[2].getRank() + 1 &
+				cards[2].getRank() == cards[3].getRank() + 1 &
+				cards[3].getRank() == cards[4].getRank() + 1) {
+				
+				return 5;
+				
+			}
+				
+		}
 		
 		// check for 3 of kind
 		

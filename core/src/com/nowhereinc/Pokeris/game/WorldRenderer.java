@@ -87,7 +87,7 @@ public class WorldRenderer implements Disposable {
 		// renderGuiBombs(batch);
 		
 		// draw FPS text bottom right
-		renderGuiFpsCounter(batch);
+		//renderGuiFpsCounter(batch);
 		
 		// draw Level in bottom left
 		renderGuiLevel(batch);
@@ -124,6 +124,18 @@ public class WorldRenderer implements Disposable {
 		
 		// draw preview card box
 		//renderGuiPreviewCardBox(batch);
+		
+		// draw pokerhand value
+		renderGuiLastPokerHand(batch);
+		
+		// draw level time
+		renderGuiLevelTime(batch);
+		
+		if (worldController.level.returnLevelClearPause()) {
+			
+			renderGuiScoreScreen(batch);
+			
+		}
 
 		batch.end();
 		
@@ -317,14 +329,112 @@ public class WorldRenderer implements Disposable {
 		BitmapFont fpsFont = Assets.instance.fonts.defaultBig;
 		
 		fpsFont.setColor(1, 1, 1, 1); // white
-		fpsFont.draw(batch, "Level: " + worldController.level.returnLevelNumber() , x, y);
+		fpsFont.draw(batch, "Level: " + worldController.level.returnLevelNumber(), x, y);
 		fpsFont.setColor(1, 1, 1, 1); // white
 
 	}
 	
-	private void renderGuiGameOverMessage (SpriteBatch batch) {
+	private void renderGuiScoreScreen(SpriteBatch batch) {
+		
+		float x = cameraGUI.viewportWidth * .5f - 150;
+		float y = cameraGUI.viewportHeight * .5f - 400;
+		
+		BitmapFont fpsFont = Assets.instance.fonts.defaultBig;
+		
+		fpsFont.setColor(0, 1, 0, 1);
+		fpsFont.draw(batch, "Lines Cleared: " + worldController.level.returnLinesCleared(), x, y);
+		
+		y += 100;
+	
+		fpsFont.draw(batch, "Level: " + worldController.level.returnLevelNumber(), x, y);
+		
+		y += 100;
+		
+		fpsFont.draw(batch, "Multiplier: " + 100, x, y);
+		
+		y += 100;
+		
+		fpsFont.draw(batch, "Level Time: " + worldController.level.returnLevelTimeMultiplier(), x, y);
+		
+		y += 100;
+		
+		fpsFont.draw(batch, "Multiplier: " + 100, x, y);
+		
+		y += 100;
+		
+		int bonusTotal = (worldController.level.returnLinesCleared() *
+						 worldController.level.returnLevelNumber() *
+						 100) + (worldController.level.returnLevelTimeMultiplier() * 100);
+		
+		fpsFont.draw(batch, "Bonus Total: " + bonusTotal, x, y);
+		
+		fpsFont.setColor(1, 1, 1, 1); // white		
+		
+	}
+	
+	private void renderGuiLastPokerHand(SpriteBatch batch) {
+		
+		float x = cameraGUI.viewportWidth * .5f - 75;
+		float y = cameraGUI.viewportHeight * .5f - 800;
+		
+		BitmapFont fpsFont = Assets.instance.fonts.defaultBig;
+		
+		fpsFont.setColor(0, 1, 0, 1);
+		
+		if (worldController.level.returnLastPokerHand() == 2)
+			fpsFont.draw(batch, "Pair", x, y);
+		
+		if (worldController.level.returnLastPokerHand() == 3)
+			fpsFont.draw(batch, "2 Pair", x, y);
+		
+		if (worldController.level.returnLastPokerHand() == 4)
+			fpsFont.draw(batch, "3 of a Kind", x, y);
+		
+		if (worldController.level.returnLastPokerHand() == 5)
+			fpsFont.draw(batch, "Straight", x, y);
+		
+		if (worldController.level.returnLastPokerHand() == 6)
+			fpsFont.draw(batch, "Flush", x, y);
+		
+		if (worldController.level.returnLastPokerHand() == 7)
+			fpsFont.draw(batch, "Full House", x, y);
+		
+		if (worldController.level.returnLastPokerHand() == 8)
+			fpsFont.draw(batch, "4 of a Kind", x, y);
+		
+		if (worldController.level.returnLastPokerHand() == 9)
+			fpsFont.draw(batch, "Straight Flush", x, y);
+		
+		if (worldController.level.returnLastPokerHand() == 10)
+			fpsFont.draw(batch, "Royal Flush", x, y);
+			
+		
+		fpsFont.setColor(1, 1, 1, 1); // white		
+		
+	}
+	
+	private void renderGuiLevelTime(SpriteBatch batch) {
+		
+		float x = cameraGUI.viewportWidth - 355;
+		float y = cameraGUI.viewportHeight - 55;
+		
+		int levelTime = (int) worldController.level.returnLevelTime();
+		
+		BitmapFont fpsFont = Assets.instance.fonts.defaultBig;
+		
+		fpsFont.setColor(0, 1, 0, 1);
+		fpsFont.draw(batch, "Level Time: " + levelTime, x, y);
+		
+		fpsFont.setColor(1, 1, 1, 1); // white
+		
+		
+	}
+	
+	private void renderGuiGameOverMessage(SpriteBatch batch) {
+		
 		float x = cameraGUI.viewportWidth * .5f;
 		float y = cameraGUI.viewportHeight * .5f;
+		
 		if (worldController.gameOver) {
 			BitmapFont fontGameOver = Assets.instance.fonts.defaultBig;
 			fontGameOver.setColor(0, 1, 0, 1);
