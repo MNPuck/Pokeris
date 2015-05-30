@@ -11,6 +11,8 @@ import com.nowhereinc.Pokeris.util.Constants;
 import com.nowhereinc.Pokeris.util.GamePreferences;
 import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
 import com.badlogic.gdx.graphics.g2d.ParticleEffectPool.PooledEffect;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Matrix4;
@@ -25,6 +27,7 @@ public class WorldRenderer implements Disposable {
 	private OrthographicCamera camera;
 	private OrthographicCamera cameraGUI;
 	private SpriteBatch batch;
+	private ShapeRenderer shapeRenderer;
 	private TiledMapRenderer renderer;
 	private WorldController worldController;
 	
@@ -38,6 +41,7 @@ public class WorldRenderer implements Disposable {
 
 	private void init () {
 		batch = new SpriteBatch();
+		shapeRenderer = new ShapeRenderer();
 		camera = new OrthographicCamera(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT);
 		camera.position.set(0, 0, 0);
 		camera.update();
@@ -329,7 +333,7 @@ public class WorldRenderer implements Disposable {
 		}
 
 	}
-
+	
 	public void resize (int width, int height) {
 		camera.viewportWidth = (Constants.VIEWPORT_HEIGHT / height) * width;
 		camera.update();

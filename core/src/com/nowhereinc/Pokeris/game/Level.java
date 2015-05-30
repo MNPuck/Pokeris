@@ -59,6 +59,7 @@ public class Level {
 	
 	// can swap cards boolean
 	private boolean canSwapCards;
+
 	
 	public Level () {
 

@@ -27,7 +27,7 @@ public class Constants {
 	"images/Pokeris.pack.atlas";
 	
 	// Number of Levels
-	public static final int NUMBEROFLEVELS = 10;
+	public static final int NUMBEROFLEVELS = 100;
 	
 	// Number of Columns
 	public static final int NUMBEROFCOLUMNS = 5;
@@ -47,5 +47,8 @@ public class Constants {
 	
 	// Game preferences file
 	public static final String PREFERENCES = "pokeris.prefs";
+	
+	// Particle effect scale
+	public static final float PARTICLESCALE = 0.0060f;
 		
 }
