@@ -130,10 +130,10 @@ public class Hand {
 			cards[1].getSuit() == cards[2].getSuit() &
 			cards[2].getSuit() == cards[3].getSuit() &
 			cards[3].getSuit() == cards[4].getSuit() &
-			cards[0].getRank() == cards[4].getRank() + 1 &
-			cards[4].getRank() == cards[3].getRank() + 1 &	
-			cards[3].getRank() == cards[2].getRank() + 1 &
-			cards[2].getRank() == cards[1].getRank() + 1) {
+			cards[0].getRank() == cards[4].getRank() - 1 &
+			cards[4].getRank() == cards[3].getRank() - 1 &	
+			cards[3].getRank() == cards[2].getRank() - 1 &
+			cards[2].getRank() == cards[1].getRank() - 1) {
 					
 				swapCards(1,4);
 				swapCards(2,3);
@@ -188,15 +188,15 @@ public class Hand {
 			cards[3].getRank() == cards[4].getRank() + 1)
 				return 5;
 		
-		if (cards[0].getRank() == cards[4].getRank() + 1 &
-			cards[4].getRank() == cards[3].getRank() + 1 &	
-			cards[3].getRank() == cards[2].getRank() + 1 &
-			cards[2].getRank() == cards[1].getRank() + 1) {
+		if (cards[0].getRank() == cards[4].getRank() - 1 &
+			cards[4].getRank() == cards[3].getRank() - 1 &	
+			cards[3].getRank() == cards[2].getRank() - 1 &
+			cards[2].getRank() == cards[1].getRank() - 1) {
 		
 				swapCards(1,4);
 				swapCards(2,3);							
 				return 5;
-			}
+		}
 		
 		if (cards[0].getRank() == 1) {
 			
