@@ -390,9 +390,11 @@ public class Level {
 	
 	private void addLevelScore() {
 		
+		levelTime--;
+		
 		if (levelTime < Constants.LEVELTIMEGOAL) {
 			
-			levelTimeMultiplier = (int) (Constants.LEVELTIMEGOAL - levelTime + 1);
+			levelTimeMultiplier = (int) (Constants.LEVELTIMEGOAL - levelTime) + 1;
 			
 		}
 		

@@ -70,6 +70,14 @@ public class GameScreen extends AbstractGameScreen {
 	@Override
 	public void hide () {
 		
+		if (worldController.level.returnScore() > GamePreferences.instance.highScore) {
+			
+			GamePreferences.instance.highScore = worldController.level.returnScore();
+			
+		}
+		
+		GamePreferences.instance.save();
+		
 		//worldRenderer.dispose();
 		//game.dispose();
 		

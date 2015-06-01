@@ -126,6 +126,9 @@ public class WorldRenderer implements Disposable {
 		// draw preview card box
 		//renderGuiPreviewCardBox(batch);
 		
+		// draw high score
+		renderGuiHighScore(batch);
+		
 		// draw pokerhand value
 		
 		if (worldController.level.returnLastPokerHandTime() > 0)
@@ -197,7 +200,7 @@ public class WorldRenderer implements Disposable {
 	}
 	
 	private void renderGuiHoldCardText (SpriteBatch batch) {
-		float x = cameraGUI.viewportWidth * .5f - 525;
+		float x = cameraGUI.viewportWidth * .5f - 535;
 		float y = cameraGUI.viewportHeight * .5f + 510;
 		
 		BitmapFont fpsFont = Assets.instance.fonts.defaultNormal;
@@ -209,7 +212,7 @@ public class WorldRenderer implements Disposable {
 	}
 	
 	private void renderGuiHoldCard (SpriteBatch batch) {
-		float x = cameraGUI.viewportWidth * .5f - 525;
+		float x = cameraGUI.viewportWidth * .5f - 515;
 		float y = cameraGUI.viewportHeight * .5f + 610;
 		
 		if (worldController.level.holdCard.getRank() != 0 &&
@@ -224,21 +227,21 @@ public class WorldRenderer implements Disposable {
 	
 	private void renderGuiHoldCardBox (SpriteBatch batch) {
 		
-		float x = cameraGUI.viewportWidth * .5f - 525;
+		float x = cameraGUI.viewportWidth * .5f - 515;
 		float y = cameraGUI.viewportHeight * .5f + 610;
 		
 		if (worldController.level.holdCard.getRank() == 0 &&
 			worldController.level.holdCard.getSuit() == 0) {
 		
 			batch.draw(Assets.instance.border.border,
-					   x, y, 50, 50, 150, 150, 1f, -1f, 0);
+					   x, y, 50, 50, 125, 150, 1f, -1f, 0);
 		
 		}
 		
 	}
 	
 	private void renderGuiPreviewCardText (SpriteBatch batch) {
-		float x = cameraGUI.viewportWidth * .5f + 375;
+		float x = cameraGUI.viewportWidth * .5f + 350;
 		float y = cameraGUI.viewportHeight * .5f + 510;
 		
 		BitmapFont fpsFont = Assets.instance.fonts.defaultNormal;
@@ -277,17 +280,25 @@ public class WorldRenderer implements Disposable {
 
 	}
 	
-	private void renderGuiHighScore (SpriteBatch batch) {
-		
-	}
-	
 	private void renderGuiMultiplier (SpriteBatch batch) {
 
 	}
 	
-	private void renderGuiCardsRemaining (SpriteBatch batch) {
-		float x = cameraGUI.viewportWidth - 455;
+	private void renderGuiHighScore(SpriteBatch batch) {
+		float x = cameraGUI.viewportWidth - 445;
 		float y = 15;
+		
+		BitmapFont fpsFont = Assets.instance.fonts.defaultBig;
+		
+		fpsFont.setColor(0, 1, 0, 1);
+		fpsFont.draw(batch, "High Score: " + GamePreferences.instance.highScore , x , y);		
+		fpsFont.setColor(1, 1, 1, 1); // white
+		
+	}
+	
+	private void renderGuiCardsRemaining (SpriteBatch batch) {
+		float x = cameraGUI.viewportWidth * .5f - 200;
+		float y = cameraGUI.viewportHeight * .5f - 800;
 		
 		BitmapFont fpsFont = Assets.instance.fonts.defaultBig;
 		
