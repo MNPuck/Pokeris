@@ -392,13 +392,13 @@ public class Level {
 		
 		if (levelTime < Constants.LEVELTIMEGOAL) {
 			
-			levelTimeMultiplier = (int) (Constants.LEVELTIMEGOAL - levelTime);
+			levelTimeMultiplier = (int) (Constants.LEVELTIMEGOAL - levelTime + 1);
 			
 		}
 		
 		else {
 			
-			levelTimeMultiplier = 1;
+			levelTimeMultiplier = 0;
 			
 		}
 		
@@ -493,6 +493,12 @@ public class Level {
 	public float returnLevelTime() {
 		
 		return levelTime;
+		
+	}
+	
+	public int returnLevelTimeInt() {
+		
+		return (int) (levelTime);
 		
 	}
 	

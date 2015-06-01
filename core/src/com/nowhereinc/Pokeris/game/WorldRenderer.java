@@ -339,12 +339,14 @@ public class WorldRenderer implements Disposable {
 	
 	private void renderGuiScoreScreen(SpriteBatch batch) {
 		
-		float x = cameraGUI.viewportWidth * .5f - 150;
+		float x = cameraGUI.viewportWidth * .5f - 275;
 		float y = cameraGUI.viewportHeight * .5f - 400;
 		
-		BitmapFont fpsFont = Assets.instance.fonts.defaultBig;
+		BitmapFont fpsFont = Assets.instance.fonts.defaultNormal;
 		
-		fpsFont.setColor(0, 1, 0, 1);
+		
+		fpsFont.setColor(1, 1, 1, 1); // white		
+		
 		fpsFont.draw(batch, "Lines Cleared: " + worldController.level.returnLinesCleared(), x, y);
 		
 		y += 100;
@@ -357,7 +359,20 @@ public class WorldRenderer implements Disposable {
 		
 		y += 100;
 		
-		fpsFont.draw(batch, "Level Time: " + worldController.level.returnLevelTimeMultiplier(), x, y);
+		fpsFont.setColor(1, 1, 0, 1); // yellow
+		
+		fpsFont.draw(batch, "Subtotal: " + worldController.level.returnLinesCleared()
+				            + " x " + worldController.level.returnLevelNumber() + " x 100 = "
+				            + worldController.level.returnLinesCleared() *
+						    worldController.level.returnLevelNumber() * 100, x, y);
+		
+		y += 100;
+		
+		fpsFont.setColor(1, 1, 1, 1); // white	
+		
+		fpsFont.draw(batch, "Level Time: " + Constants.LEVELTIMEGOAL + " - " +
+							+ worldController.level.returnLevelTimeInt() + " = " +
+							+ worldController.level.returnLevelTimeMultiplier(), x, y);
 		
 		y += 100;
 		
@@ -365,9 +380,18 @@ public class WorldRenderer implements Disposable {
 		
 		y += 100;
 		
+		fpsFont.setColor(1, 1, 0, 1); // yellow
+		
+		fpsFont.draw(batch, "Subtotal: " + worldController.level.returnLevelTimeMultiplier() 
+							+ " x 100 = " + (worldController.level.returnLevelTimeMultiplier() * 100), x, y);
+		
 		int bonusTotal = (worldController.level.returnLinesCleared() *
 						 worldController.level.returnLevelNumber() *
 						 100) + (worldController.level.returnLevelTimeMultiplier() * 100);
+		
+		y += 100;
+		
+		fpsFont.setColor(0, 1, 0, 1); // green
 		
 		fpsFont.draw(batch, "Bonus Total: " + bonusTotal, x, y);
 		
