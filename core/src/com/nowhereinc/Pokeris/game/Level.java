@@ -69,6 +69,9 @@ public class Level {
 	// last poker hand
 	private int lastPokerHand;
 	
+	// last poker hand time
+	private float lastPokerHandTime;
+	
 	// level time
 	private float levelTime;
 	
@@ -124,6 +127,12 @@ public class Level {
 			!levelClearPause) {
 			
 			levelTime += deltaTime;
+			
+			if (lastPokerHandTime > 0f) {
+				
+				lastPokerHandTime -= deltaTime;
+				
+			}
 		
 			if (holdPressed &&
 				holdCard.getRank() != 0 &&
@@ -151,6 +160,7 @@ public class Level {
 				holdCard.getSuit() == 0) {
 			
 				holdCard = activeCard;
+				holdCard.resetVelocity();
 				addCard();
 			
 			}
@@ -158,9 +168,9 @@ public class Level {
 			// if active card is stopped add a new card
 		
 			if (activeCard.returnCardStopped()) {
-			
+				
 				if (cardsRemaining > 0) {
-			
+		
 					cards.add(activeCard);
 					addCard();
 	
@@ -173,9 +183,23 @@ public class Level {
 				}
 			
 			}
-		
-			// update active cards
-			activeCard.update(deltaTime, grid, levelNumber);
+			
+			switch (Gdx.app.getType()) {
+			
+			case Desktop: 
+				
+				activeCard.updateDesktop(deltaTime, grid, levelNumber);	
+				break;
+			
+			case Android:
+				activeCard.updateAndroid(deltaTime, grid, levelNumber);
+				break;
+			
+			default:
+				break;
+					
+			}
+
 		
 			// grid row update
 			updateRows();
@@ -192,7 +216,6 @@ public class Level {
 				levelClearPause = false;
 				newLevel();
 
-				
 			}
 			
 		}
@@ -246,6 +269,7 @@ public class Level {
 					score += rowHand.returnScore(rowPokerHand);
 					linesCleared++;
 					lastPokerHand = rowPokerHand;
+					lastPokerHandTime = Constants.POKERSCORESHOWTIME;
 					
 					grid.deleteRow(row);
 					
@@ -366,9 +390,9 @@ public class Level {
 	
 	private void addLevelScore() {
 		
-		if (levelTime < 100) {
+		if (levelTime < Constants.LEVELTIMEGOAL) {
 			
-			levelTimeMultiplier = (int) (100 - levelTime);
+			levelTimeMultiplier = (int) (Constants.LEVELTIMEGOAL - levelTime);
 			
 		}
 		
@@ -445,6 +469,12 @@ public class Level {
 	public int returnLastPokerHand() {
 		
 		return lastPokerHand;
+		
+	}
+	
+	public float returnLastPokerHandTime() {
+		
+		return lastPokerHandTime;
 		
 	}
 	

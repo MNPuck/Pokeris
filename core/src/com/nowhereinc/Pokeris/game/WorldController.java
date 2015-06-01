@@ -36,8 +36,12 @@ public class WorldController extends InputAdapter {
 	private boolean holdPressed;
 	private boolean keyPressed;
 	
+	private boolean androidMoveSet;
+	private int androidColumn;
+	
 	private Rectangle arrowBox;
 	private Rectangle holdBox;
+	private Rectangle gameBox;
 	
 	Vector2 cameraPosition;
 
@@ -71,6 +75,7 @@ public class WorldController extends InputAdapter {
 		
 		arrowBox = new Rectangle();
 		holdBox = new Rectangle();
+		gameBox = new Rectangle();
 		
 		initLevel();
 		
@@ -110,6 +115,8 @@ public class WorldController extends InputAdapter {
 		holdPressed = false;
 		keyPressed = false;
 		
+		androidMoveSet = false;
+		
 		if (!gameOver) {
 		
 			switch (Gdx.app.getType()) {
@@ -119,7 +126,7 @@ public class WorldController extends InputAdapter {
 					break;
 			
 				case Android:
-					readScreenInput();
+					readScreenInput2(worldRenderer);
 					break;
 			
 				default:
@@ -186,7 +193,7 @@ public class WorldController extends InputAdapter {
 			
 		}
 		
-		level.activeCard.getInput(moveRight, moveLeft, moveUp, moveDown);
+		level.activeCard.getInputDesktop(moveRight, moveLeft, moveUp, moveDown);
 		
 		if (Gdx.input.isKeyJustPressed(Keys.SHIFT_LEFT) ||
 			Gdx.input.isKeyJustPressed(Keys.SHIFT_RIGHT)) {
@@ -269,8 +276,103 @@ public class WorldController extends InputAdapter {
 			
 		}
 		
-		level.activeCard.getInput(moveRight, moveLeft, moveUp, moveDown);
+		level.activeCard.getInputAndroid(androidMoveSet, androidColumn);
 				
+	}
+	
+	private void readScreenInput2(WorldRenderer worldRenderer) {
+		
+		if (Gdx.input.justTouched()) {
+			
+			Vector2 tsAxis = new Vector2(0,0);
+				
+			tsAxis.x = Gdx.input.getX();
+			tsAxis.y = Gdx.input.getY();
+			
+			//check if touch in hold box
+			float x = Constants.VIEWPORT_GUI_WIDTH * .5f - 525;
+			float y = Constants.VIEWPORT_GUI_HEIGHT * .5f + 610;
+			
+			holdBox.set(x, y, 150, 150);
+			
+			if (holdBox.contains(tsAxis))
+				holdPressed = true;
+			
+			//get x and y ratio of pixels to world unit
+			float xRatio = Constants.VIEWPORT_GUI_WIDTH / Constants.VIEWPORT_WIDTH;
+			float yRatio = Constants.VIEWPORT_GUI_HEIGHT / Constants.VIEWPORT_HEIGHT;
+			
+			//use ratio to figure out gameboards left corner in pixels
+			float xPos = Constants.GAMEBOARD_WIDTH * xRatio * .5f;
+			float yPos = Constants.GAMEBOARD_HEIGHT * yRatio * .5f;
+			
+			//use ratio to figure out the length and height of rectangle in pixels
+			float length = Constants.GAMEBOARD_WIDTH * xRatio;
+			float height = Constants.GAMEBOARD_HEIGHT * yRatio;
+			
+			gameBox.set(xPos, yPos, length, height);
+			
+			if (gameBox.contains(tsAxis))
+				androidMoveSet = true;
+			
+			if (androidMoveSet) {
+				
+				Gdx.app.error(TAG, "In true");
+				
+				//set up inputs to pass to convert
+				Vector3 tsInputs;
+				tsInputs = new Vector3(tsAxis.x, tsAxis.y, 0f);
+				
+				//set up output from convert
+				Vector3 tsOutput;
+			
+				//call convert
+				tsOutput = worldRenderer.cameraUnproject(tsInputs);
+			
+				//call player module
+				float wuXAxis = tsOutput.x;
+				float wuYAxis = tsOutput.y;
+				
+				Gdx.app.error(TAG, "X " + wuXAxis);
+				Gdx.app.error(TAG, "Y " + wuYAxis);
+
+				if (wuXAxis > - .5f &&
+					wuXAxis < .5f)
+					androidColumn = 3;
+				
+				if (wuXAxis <= - .5f &&
+					wuXAxis > - 1.5f)
+					androidColumn = 2;
+				
+				
+				if (wuXAxis <= - 1.5f &&
+					wuXAxis > - 2.5f)
+					androidColumn = 1;
+				
+				if (wuXAxis >= .5f &&
+					wuXAxis < 1.5f)
+					androidColumn = 4;
+				
+				if (wuXAxis >= 1.5f &&
+					wuXAxis < 2.5f)
+					androidColumn = 5;
+				
+				Gdx.app.error(TAG, "Column " + androidColumn);
+				
+			}
+		
+			keyPressed = true;
+					
+		}
+			
+		else {
+					
+			androidMoveSet = false;
+				
+		}
+		
+		level.activeCard.getInputAndroid(androidMoveSet, androidColumn);
+		
 	}
 	
 	private void checkEscKey() {

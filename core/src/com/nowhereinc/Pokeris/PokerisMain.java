@@ -13,7 +13,7 @@ public class PokerisMain extends DirectedGame {
 	public void create () {
 		
 		// Set Libgdx log level to DEBUG
-		Gdx.app.setLogLevel(Application.LOG_DEBUG);
+		Gdx.app.setLogLevel(Application.LOG_ERROR);
 		// Load assets
 		Assets.instance.init(new AssetManager());
 		

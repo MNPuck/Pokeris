@@ -50,5 +50,11 @@ public class Constants {
 	
 	// Particle effect scale
 	public static final float PARTICLESCALE = 0.0060f;
+	
+	// Level time goal
+	public static final int LEVELTIMEGOAL = 100;
+	
+	// Poker Hand Score show time
+	public static final float POKERSCORESHOWTIME = 2f;
 		
 }

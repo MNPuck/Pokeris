@@ -46,6 +46,10 @@ public class Card extends AbstractGameObject {
     private boolean moveDown;
     private boolean holdPressed;
     
+    // android moves
+    private boolean androidMoveSet;
+    private int androidMoveColumn;
+    
     // column
     private int column;
     
@@ -399,12 +403,20 @@ public class Card extends AbstractGameObject {
     	
     }
     
-    public void getInput(boolean moveRightIn, boolean moveLeftIn, boolean moveUpIn, boolean moveDownIn) {
+    public void getInputDesktop(boolean moveRightIn, boolean moveLeftIn, boolean moveUpIn, boolean moveDownIn) {
     	
     	moveRight = moveRightIn;
     	moveLeft = moveLeftIn;
     	moveUp = moveUpIn;
     	moveDown = moveDownIn;
+
+    	
+    }
+    
+    public void getInputAndroid(boolean androidMoveSetIn, int androidColumnIn) {
+    	
+    	androidMoveSet = androidMoveSetIn;
+    	androidMoveColumn = androidColumnIn;
     	
     }
     
@@ -502,8 +514,114 @@ public class Card extends AbstractGameObject {
             return null;
         }    
     }
+    
+    public void updateAndroid (float deltaTime, Grid grid, int levelNumber) {
+    	
+    	// empty row variable
+    	int emptyRow = 0;
+    	
+    	// empty row position
+    	float emptyRowPos = 0f;
+    	
+    	// if velocity y is zero start by moving card down
+    	
+    	if (velocity.y == 0) {
+    		
+    		velocity.y = -1.0f;
+    		column = 3;
+    		row = 12;
+    		
+    		terminalVelocity.y += levelNumber * .5f;
+    		
+    	}
+		
+   		// get new velocity
+		
+   		velocity.y += (accleration.y * deltaTime * velocity.y);
+		
+   		// limit speed to terminal velocity
+		
+   		velocity.y = MathUtils.clamp(velocity.y, -terminalVelocity.y, terminalVelocity.y);
+		
+		//update position y
+		
+		position.y += velocity.y * deltaTime;
+			
+		// get row data for current column
+		for (int i = 1; i < 13; i++) {
+    		
+			if (!grid.getIsFull(i, column)) {
+    			
+				emptyRow = i;
+				break;
+    			
+			}
+    		
+		}
+    	
+		emptyRowPos = - (Constants.GAMEBOARD_HEIGHT * .5f) + ((emptyRow - 1) * Constants.CARDYSIZE);
+    		
+		if (position.y - Constants.CARDYSIZE * .5f <= emptyRowPos) {
+    		
+   			position.y = emptyRowPos + Constants.CARDYSIZE * .5f;
+    		velocity.y = 0.0f;
+    		isCardStopped = true;
+    		grid.putCard(emptyRow, column, rank, suit);
+    			   		
+		}
+   		
+		if (androidMoveSet)	{
+			
+			// get row data for current android column
+			for (int i = 1; i < 13; i++) {
+	    		
+				if (!grid.getIsFull(i, androidMoveColumn)) {
+	    			
+					emptyRow = i;
+					break;
+	    			
+				}
+	    		
+			}
+			
+			emptyRowPos = - (Constants.GAMEBOARD_HEIGHT * .5f) + ((emptyRow - 1) * Constants.CARDYSIZE);
+			
+			// update x position
+			
+			if (androidMoveColumn == 1) {
+				
+				position.x = position.x - Constants.CARDXSIZE * 2;
+				
+			}
+			
+			if (androidMoveColumn == 2) {
+				
+				position.x = position.x - Constants.CARDXSIZE;
+				
+			}
+			
+			if (androidMoveColumn == 4) {
+				
+				position.x = position.x + Constants.CARDXSIZE;
+				
+			}
+			
+			if (androidMoveColumn == 5) {
+				
+				position.x = position.x + Constants.CARDXSIZE * 2;
+				
+			}
+			
+			position.y = emptyRowPos + Constants.CARDYSIZE * .5f;
+			velocity.y = 0.0f;
+			isCardStopped = true;
+			grid.putCard(emptyRow, androidMoveColumn, rank, suit);
+   		
+		}
+    	
+    }
 
-    public void update (float deltaTime, Grid grid, int levelNumber) {
+    public void updateDesktop (float deltaTime, Grid grid, int levelNumber) {
     	
     	// empty row variable
     	int emptyRow = 0;
@@ -604,6 +722,7 @@ public class Card extends AbstractGameObject {
    			grid.putCard(emptyRow, column, rank, suit);
    			
    		}
+   		
     	
     }
     
@@ -612,6 +731,7 @@ public class Card extends AbstractGameObject {
     	terminalVelocity.y += terminalVelocityYIn;
     	
     }
+    
     
     public boolean returnCardStopped() {
     	

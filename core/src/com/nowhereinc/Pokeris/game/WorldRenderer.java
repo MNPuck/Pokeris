@@ -68,6 +68,7 @@ public class WorldRenderer implements Disposable {
 	}
 	
 	private void renderGui (SpriteBatch batch) {
+		
 		batch.setProjectionMatrix(cameraGUI.combined);
 		batch.begin();
 
@@ -96,16 +97,16 @@ public class WorldRenderer implements Disposable {
 		renderGuiGameOverMessage(batch);
 		
 		// draw down arrow
-		renderGuiDownArrow(batch);
+		// renderGuiDownArrow(batch);
 		
 		// draw left arrow
-		renderGuiLeftArrow(batch);
+		// renderGuiLeftArrow(batch);
 		
 		// draw right arrow
-		renderGuiRightArrow(batch);
+		// renderGuiRightArrow(batch);
 		
 		// draw up arrow
-		renderGuiUpArrow(batch);
+		// renderGuiUpArrow(batch);
 		
 		// draw hold card text
 		renderGuiHoldCardText(batch);
@@ -126,7 +127,9 @@ public class WorldRenderer implements Disposable {
 		//renderGuiPreviewCardBox(batch);
 		
 		// draw pokerhand value
-		renderGuiLastPokerHand(batch);
+		
+		if (worldController.level.returnLastPokerHandTime() > 0)
+			renderGuiLastPokerHand(batch);
 		
 		// draw level time
 		renderGuiLevelTime(batch);
@@ -374,39 +377,39 @@ public class WorldRenderer implements Disposable {
 	
 	private void renderGuiLastPokerHand(SpriteBatch batch) {
 		
-		float x = cameraGUI.viewportWidth * .5f - 75;
-		float y = cameraGUI.viewportHeight * .5f - 800;
+		float x = cameraGUI.viewportWidth * .5f - 50;
+		float y = cameraGUI.viewportHeight * .5f + 750;
 		
 		BitmapFont fpsFont = Assets.instance.fonts.defaultBig;
 		
 		fpsFont.setColor(0, 1, 0, 1);
 		
 		if (worldController.level.returnLastPokerHand() == 2)
-			fpsFont.draw(batch, "Pair", x, y);
+			fpsFont.draw(batch, "Pair + 100", x, y);
 		
 		if (worldController.level.returnLastPokerHand() == 3)
-			fpsFont.draw(batch, "2 Pair", x, y);
+			fpsFont.draw(batch, "2 Pair + 200", x, y);
 		
 		if (worldController.level.returnLastPokerHand() == 4)
-			fpsFont.draw(batch, "3 of a Kind", x, y);
+			fpsFont.draw(batch, "3 of a Kind + 300", x, y);
 		
 		if (worldController.level.returnLastPokerHand() == 5)
-			fpsFont.draw(batch, "Straight", x, y);
+			fpsFont.draw(batch, "Straight + 400", x, y);
 		
 		if (worldController.level.returnLastPokerHand() == 6)
-			fpsFont.draw(batch, "Flush", x, y);
+			fpsFont.draw(batch, "Flush + 600", x, y);
 		
 		if (worldController.level.returnLastPokerHand() == 7)
-			fpsFont.draw(batch, "Full House", x, y);
+			fpsFont.draw(batch, "Full House + 900", x, y);
 		
 		if (worldController.level.returnLastPokerHand() == 8)
-			fpsFont.draw(batch, "4 of a Kind", x, y);
+			fpsFont.draw(batch, "4 of a Kind +2500", x, y);
 		
 		if (worldController.level.returnLastPokerHand() == 9)
-			fpsFont.draw(batch, "Straight Flush", x, y);
+			fpsFont.draw(batch, "Straight Flush + 5000", x, y);
 		
 		if (worldController.level.returnLastPokerHand() == 10)
-			fpsFont.draw(batch, "Royal Flush", x, y);
+			fpsFont.draw(batch, "Royal Flush + 25000", x, y);
 			
 		
 		fpsFont.setColor(1, 1, 1, 1); // white		
@@ -422,7 +425,19 @@ public class WorldRenderer implements Disposable {
 		
 		BitmapFont fpsFont = Assets.instance.fonts.defaultBig;
 		
-		fpsFont.setColor(0, 1, 0, 1);
+		if (levelTime < Constants.LEVELTIMEGOAL) {
+		
+			fpsFont.setColor(0, 1, 0, 1); // green
+			
+		
+		}
+		
+		else {
+			
+			fpsFont.setColor(1, 0, 0, 1); // red
+			
+		}
+		
 		fpsFont.draw(batch, "Level Time: " + levelTime, x, y);
 		
 		fpsFont.setColor(1, 1, 1, 1); // white
