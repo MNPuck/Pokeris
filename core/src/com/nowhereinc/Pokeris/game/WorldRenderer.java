@@ -129,7 +129,7 @@ public class WorldRenderer implements Disposable {
 		// draw high score
 		renderGuiHighScore(batch);
 		
-		// draw pokerhand value
+		// draw poker hand value
 		
 		if (worldController.level.returnLastPokerHandTime() > 0)
 			renderGuiLastPokerHand(batch);
@@ -290,8 +290,22 @@ public class WorldRenderer implements Disposable {
 		
 		BitmapFont fpsFont = Assets.instance.fonts.defaultBig;
 		
+		int highScore = 0;
+		
+		if (worldController.level.returnScore() > GamePreferences.instance.highScore) {
+			
+			highScore = worldController.level.returnScore();
+			
+		}
+		
+		else {
+			
+			highScore = GamePreferences.instance.highScore;
+			
+		}
+			 
 		fpsFont.setColor(0, 1, 0, 1);
-		fpsFont.draw(batch, "High Score: " + GamePreferences.instance.highScore , x , y);		
+		fpsFont.draw(batch, "High Score: " + highScore , x , y);		
 		fpsFont.setColor(1, 1, 1, 1); // white
 		
 	}
@@ -351,10 +365,9 @@ public class WorldRenderer implements Disposable {
 	private void renderGuiScoreScreen(SpriteBatch batch) {
 		
 		float x = cameraGUI.viewportWidth * .5f - 275;
-		float y = cameraGUI.viewportHeight * .5f - 400;
+		float y = cameraGUI.viewportHeight * .5f - 500;
 		
 		BitmapFont fpsFont = Assets.instance.fonts.defaultNormal;
-		
 		
 		fpsFont.setColor(1, 1, 1, 1); // white		
 		
@@ -377,7 +390,7 @@ public class WorldRenderer implements Disposable {
 				            + worldController.level.returnLinesCleared() *
 						    worldController.level.returnLevelNumber() * 100, x, y);
 		
-		y += 100;
+		y += 200;
 		
 		fpsFont.setColor(1, 1, 1, 1); // white	
 		
@@ -400,7 +413,9 @@ public class WorldRenderer implements Disposable {
 						 worldController.level.returnLevelNumber() *
 						 100) + (worldController.level.returnLevelTimeMultiplier() * 100);
 		
-		y += 100;
+		y += 200;
+		
+		fpsFont = Assets.instance.fonts.defaultBig;
 		
 		fpsFont.setColor(0, 1, 0, 1); // green
 		
@@ -412,7 +427,7 @@ public class WorldRenderer implements Disposable {
 	
 	private void renderGuiLastPokerHand(SpriteBatch batch) {
 		
-		float x = cameraGUI.viewportWidth * .5f - 50;
+		float x = cameraGUI.viewportWidth * .5f - 150;
 		float y = cameraGUI.viewportHeight * .5f + 750;
 		
 		BitmapFont fpsFont = Assets.instance.fonts.defaultBig;
