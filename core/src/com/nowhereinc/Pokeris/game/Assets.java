@@ -31,6 +31,8 @@ public class Assets implements Disposable, AssetErrorListener {
 	public AssetFonts fonts;
 	
 	public AssetBorder border;
+	public AssetLineH lineH;
+	public AssetLineV lineV;
 	
 	public AssetCard1 card1;	
 	public AssetCard2 card2;
@@ -128,6 +130,36 @@ public class Assets implements Disposable, AssetErrorListener {
 			if (border == null) {
 				
 				Gdx.app.debug(TAG,"Border is null");
+			}
+
+		}
+		
+	}
+	
+	public class AssetLineH {
+		public final AtlasRegion lineH;
+
+		public AssetLineH (TextureAtlas atlas) {
+			lineH = atlas.findRegion("lineH");
+			
+			if (lineH == null) {
+				
+				Gdx.app.debug(TAG,"lineH is null");
+			}
+
+		}
+		
+	}
+	
+	public class AssetLineV {
+		public final AtlasRegion lineV;
+
+		public AssetLineV (TextureAtlas atlas) {
+			lineV = atlas.findRegion("lineV");
+			
+			if (lineV == null) {
+				
+				Gdx.app.debug(TAG,"lineV is null");
 			}
 
 		}
@@ -1031,6 +1063,8 @@ public class Assets implements Disposable, AssetErrorListener {
 		fonts = new AssetFonts();
 		
 		border = new AssetBorder(atlas);
+		lineH = new AssetLineH(atlas);
+		lineV = new AssetLineV(atlas);
 		
 		card1 = new AssetCard1(atlas);
 		card2 = new AssetCard2(atlas);

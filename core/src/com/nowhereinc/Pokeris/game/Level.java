@@ -9,6 +9,8 @@ import com.nowhereinc.Pokeris.game.objects.Card;
 import com.nowhereinc.Pokeris.game.objects.Deck;
 import com.nowhereinc.Pokeris.game.objects.Grid;
 import com.nowhereinc.Pokeris.game.objects.Hand;
+import com.nowhereinc.Pokeris.game.objects.LineH;
+import com.nowhereinc.Pokeris.game.objects.LineV;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.nowhereinc.Pokeris.util.Constants;
@@ -20,6 +22,17 @@ public class Level {
 	
 	// Border
 	public Border border;
+	
+	// lineH single
+	public LineH lineH;
+	
+	// lineH array
+	public Array<LineH> lineHs;
+	
+	public LineV lineV;
+	
+	// lineV array
+	public Array<LineV> lineVs;
 	
 	// cards array
 	public Array<Card> cards;
@@ -100,6 +113,34 @@ public class Level {
 		obj = new Border();
 		obj.position.set(0,0);
 		border = (Border)obj;
+		
+		lineVs = new Array<LineV>();
+		
+		// create 4 vertical lines
+		for (int i = 0; i < 4; i++) {
+			
+			obj = null;
+			obj = new LineV();
+			float xPos = i * 1f + -1.5f;
+			obj.position.set(xPos, -5.625f);
+			lineV = (LineV)obj;
+			lineVs.add(lineV);
+			
+		}
+		
+		lineHs = new Array<LineH>();
+		
+		// create 9 horizontal lines
+		for (int j = 0; j < 8; j++) {
+			
+			obj = null;
+			obj = new LineH();
+			float yPos = j * 1.25f + -4.375f;
+			obj.position.set(-2.5f, yPos);
+			lineH = (LineH)obj;
+			lineHs.add(lineH);
+			
+		}
 		
 		newLevel();
 		
@@ -533,6 +574,14 @@ public class Level {
 		border.render(batch);
 		
 		if (!levelClearPause) {
+			
+			// draw horizontal lines
+			for (LineH lineH : lineHs)
+				lineH.render(batch);
+			
+			// draw vertical lines
+			for (LineV lineV : lineVs)
+				lineV.render(batch);
 		
 			// draw active card
 			activeCard.render(batch);
