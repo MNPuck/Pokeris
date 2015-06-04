@@ -1,7 +1,5 @@
 package com.nowhereinc.Pokeris.game.objects;
 
-import java.util.Random;
-
 public class Grid {
 
     public static int numRows = 10;

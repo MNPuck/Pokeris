@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector2;
 import com.nowhereinc.Pokeris.game.Assets;
 import com.nowhereinc.Pokeris.game.Level;
 import com.nowhereinc.Pokeris.util.Constants;
@@ -436,6 +435,7 @@ public class Card extends AbstractGameObject {
     public void resetVelocity() {
     	
     	velocity.y = 0;
+    	terminalVelocity.y = 1;
     	
     }
     

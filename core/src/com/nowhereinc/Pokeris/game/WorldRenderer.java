@@ -1,23 +1,13 @@
 package com.nowhereinc.Pokeris.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.ParticleEffectPool.PooledEffect;
 import com.badlogic.gdx.utils.Disposable;
 import com.nowhereinc.Pokeris.util.Constants;
 import com.nowhereinc.Pokeris.util.GamePreferences;
-import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
-import com.badlogic.gdx.graphics.g2d.ParticleEffectPool.PooledEffect;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 
 
 public class WorldRenderer implements Disposable {
@@ -26,13 +16,8 @@ public class WorldRenderer implements Disposable {
 
 	private OrthographicCamera camera;
 	private OrthographicCamera cameraGUI;
-	private SpriteBatch batch;
-	private ShapeRenderer shapeRenderer;
-	private TiledMapRenderer renderer;
+	private SpriteBatch batch;;
 	private WorldController worldController;
-	
-	private Box2DDebugRenderer debugRenderer;
-	// private Matrix4 debugMatrix;
 
 	public WorldRenderer (WorldController worldController) {
 		this.worldController = worldController;
@@ -41,7 +26,6 @@ public class WorldRenderer implements Disposable {
 
 	private void init () {
 		batch = new SpriteBatch();
-		shapeRenderer = new ShapeRenderer();
 		camera = new OrthographicCamera(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT);
 		camera.position.set(0, 0, 0);
 		camera.update();
@@ -75,38 +59,14 @@ public class WorldRenderer implements Disposable {
 		// draw score in upper left
 		renderGuiScore(batch);
 		
-		// draw high Score next to score
-		//renderGuiHighScore(batch);
-		
-		// draw multiplier in upper middle
-		//renderGuiMultiplier(batch);
-		
 		// draw cards remaining in upper right
 		renderGuiCardsRemaining(batch);
-		
-		// draw bombs to the left of lives
-		// renderGuiBombs(batch);
-		
-		// draw FPS text bottom right
-		//renderGuiFpsCounter(batch);
 		
 		// draw Level in bottom left
 		renderGuiLevel(batch);
 		
 		// draw game over text
 		renderGuiGameOverMessage(batch);
-		
-		// draw down arrow
-		// renderGuiDownArrow(batch);
-		
-		// draw left arrow
-		// renderGuiLeftArrow(batch);
-		
-		// draw right arrow
-		// renderGuiRightArrow(batch);
-		
-		// draw up arrow
-		// renderGuiUpArrow(batch);
 		
 		// draw hold card text
 		renderGuiHoldCardText(batch);
@@ -123,9 +83,6 @@ public class WorldRenderer implements Disposable {
 		// draw preview card
 		renderGuiPreviewCard(batch);
 		
-		// draw preview card box
-		//renderGuiPreviewCardBox(batch);
-		
 		// draw high score
 		renderGuiHighScore(batch);
 		
@@ -137,53 +94,11 @@ public class WorldRenderer implements Disposable {
 		// draw level time
 		renderGuiLevelTime(batch);
 		
-		if (worldController.level.returnLevelClearPause()) {
-			
+		if (worldController.level.returnLevelClearPause()) 
 			renderGuiScoreScreen(batch);
-			
-		}
+
 
 		batch.end();
-		
-	}
-	
-	private void renderGuiDownArrow (SpriteBatch batch) {
-		
-		float x = cameraGUI.viewportWidth * .5f - 63;
-		float y = cameraGUI.viewportHeight - 85;
-		
-		batch.draw(Assets.instance.downArrow.downArrow,
-				x, y, 50, 50, 150, 150, 1f, -1f, 0);
-		
-	}
-	
-	private void renderGuiLeftArrow (SpriteBatch batch) {
-		
-		float x = cameraGUI.viewportWidth * .5f - 167;
-		float y = cameraGUI.viewportHeight - 180;
-		
-		batch.draw(Assets.instance.leftArrow.leftArrow,
-				x, y, 50, 50, 150, 150, 1f, -1f, 0);
-		
-	}
-	
-	private void renderGuiRightArrow (SpriteBatch batch) {
-		
-		float x = cameraGUI.viewportWidth * .5f + 45;
-		float y = cameraGUI.viewportHeight - 175;
-		
-		batch.draw(Assets.instance.rightArrow.rightArrow,
-				x, y, 50, 50, 150, 150, 1f, -1f, 0);
-		
-	}
-	
-	private void renderGuiUpArrow (SpriteBatch batch) {
-		
-		float x = cameraGUI.viewportWidth * .5f - 52;
-		float y = cameraGUI.viewportHeight - 255;
-		
-		batch.draw(Assets.instance.upArrow.upArrow,
-				x, y, 50, 50, 150, 150, 1f, -1f, 0);
 		
 	}
 	
@@ -263,24 +178,6 @@ public class WorldRenderer implements Disposable {
 					   x, y, 50, 50, 125, 150, 1f, -1f, 0);
 		
 		}
-
-	}
-	
-	private void renderGuiPreviewCardBox (SpriteBatch batch) {
-		float x = cameraGUI.viewportWidth * .5f + 375;
-		float y = cameraGUI.viewportHeight * .5f + 610;
-		
-		if (worldController.level.previewCard.getRank() == 0 &&
-			worldController.level.previewCard.getSuit() == 0) {
-		
-			batch.draw((Assets.instance.border.border),
-					   x, y, 50, 50, 150, 150, 1f, -1f, 0);
-		
-		}
-
-	}
-	
-	private void renderGuiMultiplier (SpriteBatch batch) {
 
 	}
 	

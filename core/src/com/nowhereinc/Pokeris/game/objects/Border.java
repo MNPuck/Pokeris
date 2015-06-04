@@ -4,10 +4,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.nowhereinc.Pokeris.game.Assets;
 import com.nowhereinc.Pokeris.util.Constants;
-import com.nowhereinc.Pokeris.util.Xbox360Pad;
-import com.badlogic.gdx.controllers.Controller;
-import com.badlogic.gdx.controllers.Controllers;
-import com.badlogic.gdx.math.Vector2;
 
 public class Border extends AbstractGameObject {
 

@@ -4,15 +4,12 @@ import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.controllers.Controller;
-import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.nowhereinc.Pokeris.screens.DirectedGame;
-import com.nowhereinc.Pokeris.util.CameraHelper;
 import com.nowhereinc.Pokeris.util.Constants;
-import com.nowhereinc.Pokeris.util.Xbox360Pad;
+
 
 
 public class WorldController extends InputAdapter {
@@ -21,8 +18,6 @@ public class WorldController extends InputAdapter {
 	
 	private DirectedGame game;
 	public Level level;
-	
-	private Controller player1Controller;
 	
 	private boolean startPressed;
 	private boolean selectPressed;
@@ -126,7 +121,7 @@ public class WorldController extends InputAdapter {
 					break;
 			
 				case Android:
-					readScreenInput2(worldRenderer);
+					readScreenInput(worldRenderer);
 					break;
 			
 				default:
@@ -210,77 +205,7 @@ public class WorldController extends InputAdapter {
 		
 	}
 	
-	private void readScreenInput() {
-		
-		if (Gdx.input.justTouched()) {
-			
-			Vector2 tsAxis = new Vector2(0,0);
-			
-			tsAxis.x = Gdx.input.getX();
-			tsAxis.y = Gdx.input.getY();
-			
-			// check to see if touch is in left rectangle
-			float x = Constants.VIEWPORT_GUI_WIDTH * .5f - 167;
-			float y = Constants.VIEWPORT_GUI_HEIGHT - 180;
-			
-			arrowBox.set(x, y, 150, 150);
-			
-			if (arrowBox.contains(tsAxis))
-				moveLeft = true;
-			
-			// check to see if touch is in right rectangle
-			x = Constants.VIEWPORT_GUI_WIDTH * .5f + 45;
-			y = Constants.VIEWPORT_GUI_HEIGHT - 175;
-			
-			arrowBox.set(x, y, 150, 150);
-			
-			if (arrowBox.contains(tsAxis))
-				moveRight = true;
-			
-			// check to see if touch is in up rectangle
-			x = Constants.VIEWPORT_GUI_WIDTH * .5f - 52;
-			y = Constants.VIEWPORT_GUI_HEIGHT - 255;
-			
-			arrowBox.set(x, y, 150, 150);
-			
-			if (arrowBox.contains(tsAxis))
-				moveUp = true;
-			
-			x = Constants.VIEWPORT_GUI_WIDTH * .5f - 525;
-			y = Constants.VIEWPORT_GUI_HEIGHT * .5f + 610;
-			
-			holdBox.set(x, y, 150, 150);
-			
-			if (holdBox.contains(tsAxis))
-				holdPressed = true;
-			
-			keyPressed = true;
-		
-		}
-		
-		if (Gdx.input.isTouched()) {
-			
-			Vector2 tsAxis = new Vector2(0,0);
-			
-			tsAxis.x = Gdx.input.getX();
-			tsAxis.y = Gdx.input.getY();
-			
-			// check to see if touch is in down rectangle
-			float x = Constants.VIEWPORT_GUI_WIDTH * .5f - 63;
-			float y = Constants.VIEWPORT_GUI_HEIGHT - 85;
-			
-			arrowBox.set(x, y, 150, 150);
-			
-			if (arrowBox.contains(tsAxis))
-				moveDown = true;
-			
-		}
-		
-		level.activeCard.getInputAndroid(androidMoveSet, androidColumn);
-				
-	}
-	
-	private void readScreenInput2(WorldRenderer worldRenderer) {
+	private void readScreenInput(WorldRenderer worldRenderer) {
 		
 		if (Gdx.input.justTouched()) {
 			
@@ -332,9 +257,6 @@ public class WorldController extends InputAdapter {
 				//call player module
 				float wuXAxis = tsOutput.x;
 				float wuYAxis = tsOutput.y;
-				
-				Gdx.app.error(TAG, "X " + wuXAxis);
-				Gdx.app.error(TAG, "Y " + wuYAxis);
 
 				if (wuXAxis > - .5f &&
 					wuXAxis < .5f)

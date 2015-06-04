@@ -11,10 +11,8 @@ import com.nowhereinc.Pokeris.game.objects.Grid;
 import com.nowhereinc.Pokeris.game.objects.Hand;
 import com.nowhereinc.Pokeris.game.objects.LineH;
 import com.nowhereinc.Pokeris.game.objects.LineV;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.nowhereinc.Pokeris.util.Constants;
-import com.nowhereinc.Pokeris.game.Assets;
 
 public class Level {
 
@@ -59,10 +57,7 @@ public class Level {
 	public int levelNumber;
 	
 	// variable to store score
-	public int score;
-	
-	// variable to see if this is new game
-	private boolean newGame; 
+	public int score; 
 	
 	// game over boolean
 	public boolean isGameOver;
@@ -130,7 +125,7 @@ public class Level {
 		
 		lineHs = new Array<LineH>();
 		
-		// create 9 horizontal lines
+		// create 8 horizontal lines
 		for (int j = 0; j < 8; j++) {
 			
 			obj = null;
@@ -349,58 +344,6 @@ public class Level {
 			
 		}
 			
-	}
-	
-	private void updateColumns() {
-		
-		// loop thru columns and delete column if valid poker hand is made
-		
-		for (int column = 1; column < 6; column++) {
-			
-			int rowCounter = 0;
-			
-			Hand columnHand;
-			
-			columnHand = new Hand();
-			
-			for (int row = 1; row < 6; row++) {
-				
-				if (grid.getIsFull(row, column)) {
-					
-					Card columnCard;
-					columnCard = grid.getCard(row, column);
-			
-					columnHand.putCard(columnCard.getRank(), columnCard.getSuit());
-					
-					rowCounter++;
-					
-				}
-				
-				else {
-					
-					break;
-					
-				}
-				
-			}
-				
-			if (rowCounter == 5) {
-					
-				columnHand.sortCards();
-				int columnPokerHand = columnHand.return5CardPokerHand();
-					
-				if (columnPokerHand > 1) {
-					
-					score += columnHand.returnScore(columnPokerHand);
-						
-					grid.deleteColumn(column);
-						
-				}
-				
-			}
-			
-		}
-		
 	}
 	
 	private void addCard() {
