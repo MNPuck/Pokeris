@@ -330,6 +330,8 @@ public class Level {
 										changePosCard.getSuit() == card.getSuit()) {
 									
 										card.dropRow();
+										
+										break;
 									
 									}
 								
